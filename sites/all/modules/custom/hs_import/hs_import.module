@@ -157,9 +157,22 @@ function hs_import_batch_process_import_card($card, $source) {
     $node->is_new = TRUE;
   }
   
-  // Nom du set
-  $node->field_set[LANGUAGE_NONE][0]['value'] = $source;
+  // Taxonomie : set
+  $terms = taxonomy_get_term_by_name($source, 'set');
+  if (!empty($terms)) {
+    $term = array_shift($terms);
+  }
+  else {
+    $vocab = taxonomy_vocabulary_machine_name_load('set');
   
+    $term = new stdClass();
+    $term->name = $source;
+    $term->vid = $vocab->vid;
+    taxonomy_term_save($term);
+  }
+  $node->field_set[LANGUAGE_NONE][0]['tid'] = $term->tid;
+  
+  // Autres valeurs
   foreach ($card as $property => $value) {
     switch ($property) {
       // Titre

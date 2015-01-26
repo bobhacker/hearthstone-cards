@@ -49,6 +49,14 @@ function hs_features_model_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
     ),
+    'set' => array(
+      'name' => 'set',
+      'machine_name' => 'set',
+      'description' => 'The set which the card come from. Example values: Basic, Classic, Curse of Naxxramas',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+    ),
     'type' => array(
       'name' => 'type',
       'machine_name' => 'type',
