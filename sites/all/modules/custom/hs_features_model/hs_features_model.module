@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Hearthstone Features Model feature.
+ */
+
+include_once 'hs_features_model.features.inc';
