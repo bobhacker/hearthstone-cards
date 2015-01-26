@@ -1,0 +1,254 @@
+<?php
+/**
+ * @file hs_import.module
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function hs_import_menu() {
+  $items = array();
+  $items['admin/hearthstone'] = array(
+    'title' => 'Hearthstone',
+    'page callback' => 'hs_import_admin_page',
+    'access arguments' => array('administrer hs import'),
+    //'access callback' => TRUE,
+    'weight' => -1000,
+  );
+  $items['admin/hearthstone/import'] = array(
+    'title' => 'Importation des cartes',
+    'page callback' => 'hs_import_batch',
+    'access callback' => TRUE,
+    'type' => MENU_LOCAL_ACTION,
+  );
+  return $items;
+}
+
+/**
+ * Menu page.
+ */
+function hs_import_admin_page() {
+  return '';
+}
+
+/**
+ * Batch page.
+ */
+function hs_import_batch() {
+  return render(drupal_get_form('hs_import_batch_form'));
+}
+
+function hs_import_batch_form($form, &$form_state) {
+  //http://hearthstonejson.com/json/AllSets.frFR.json
+  //http://hearthstonejson.com/json/Basic.frFR.json
+  //http://hearthstonejson.com/json/Classic.frFR.json
+  //http://hearthstonejson.com/json/Credits.frFR.json
+  //http://hearthstonejson.com/json/Curse%20of%20Naxxramas.frFR.json
+  //http://hearthstonejson.com/json/Debug.frFR.json
+  //http://hearthstonejson.com/json/Goblins%20vs%20Gnomes.frFR.json
+  //http://hearthstonejson.com/json/Missions.frFR.json
+  //http://hearthstonejson.com/json/Promotion.frFR.json
+  //http://hearthstonejson.com/json/Reward.frFR.json
+  //http://hearthstonejson.com/json/System.frFR.json
+  
+  $form = array();
+  $form['flush'] = array(
+    '#type' => 'checkbox',
+    '#title' => 'Vider la base avant import ?',
+    '#default_value' => 0,
+  );
+  $form['sets'] = array(
+    '#type' => 'checkboxes',
+    '#title' => 'Importer le(s) set(s) suivant(s) :',
+    '#options' => array_combine(
+      array('Basic', 'Classic', 'Credits', 'Curse of Naxxramas', 'Debug', 'Goblins vs Gnomes', 'Missions', 'Promotion', 'Reward', 'System'), 
+      array('Basic', 'Classic', 'Credits', 'Curse of Naxxramas', 'Debug', 'Goblins vs Gnomes', 'Missions', 'Promotion', 'Reward', 'System')
+    ),
+    /*'#required' => TRUE,*/
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Importer',
+    '#submit' => array('hs_import_batch_form_submit'),
+  );
+  return $form;
+}
+
+function hs_import_batch_form_submit($form, &$form_state) {
+  $sources = array(
+    'Basic' => 'http://hearthstonejson.com/json/Basic.frFR.json',
+    'Classic' => 'http://hearthstonejson.com/json/Classic.frFR.json',
+    'Credits' => 'http://hearthstonejson.com/json/Credits.frFR.json',
+    'Curse of Naxxramas' => 'http://hearthstonejson.com/json/Curse%20of%20Naxxramas.frFR.json',
+    'Debug' => 'http://hearthstonejson.com/json/Debug.frFR.json',
+    'Goblins vs Gnomes' => 'http://hearthstonejson.com/json/Goblins%20vs%20Gnomes.frFR.json',
+    'Missions' => 'http://hearthstonejson.com/json/Missions.frFR.json',
+    'Promotion' => 'http://hearthstonejson.com/json/Promotion.frFR.json',
+    'Reward' => 'http://hearthstonejson.com/json/Reward.frFR.json',
+    'System' => 'http://hearthstonejson.com/json/System.frFR.json',
+  );
+  
+  if ($form_state['values']['flush'] == 1) {
+    $query = db_select('node', 'n')
+      ->fields('n', array('nid'))
+      ->condition('n.type', 'carte');
+    $results = $query->execute()->fetchCol();
+    foreach ($results as $nid) {
+      node_delete($nid);
+    }
+  }
+  
+  $sets = $form_state['values']['sets'];
+  $operations = array();
+  foreach ($sets as $set => $ok) {
+    if ($ok) {
+      $data_json = file_get_contents($sources[$set]);
+      $data = json_decode($data_json);
+      foreach ($data as $card) {
+        $operations[] = array('hs_import_batch_process', array($card, $set));
+      }
+    }
+  }
+  
+  if (!empty($operations)) {
+    $batch = array(
+      'title' => 'Importation',
+      'operations' => $operations,
+      'finished' => 'hs_import_batch_finished',
+      //'file' => 'path_to_file_containing_myfunctions',
+    );
+    batch_set($batch);
+  }
+}
+
+function hs_import_batch_process($card, $source, &$context) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node');
+  $query->entityCondition('bundle', 'carte');
+  $query->fieldCondition('field_id', 'value', $card->id, '=');
+  $query->range(0, 1);
+  $result = $query->execute();
+  $card_name = empty($card->name) ? $card->id : $card->name;
+  if (isset($result['node'])) {
+    $context['message'] = 'Mise à jour de "' . check_plain($card_name) . '" [' . $source . '].';
+  }
+  else {
+    $context['message'] = 'Importation de "' . check_plain($card_name) . '" [' . $source . '].';
+  }
+  hs_import_batch_process_import_card($card, $source);
+  $context['results'][] = check_plain($card_name) . ' [' . check_plain($card->id) . '].';
+}
+
+function hs_import_batch_process_import_card($card, $source) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node');
+  $query->entityCondition('bundle', 'carte');
+  $query->fieldCondition('field_id', 'value', $card->id, '=');
+  $query->range(0, 1);
+  $result = $query->execute();
+  if (isset($result['node'])) {
+    $node = array_shift($result['node']);
+    $node = node_load($node->nid);
+  }
+  else {
+    $node = new stdClass();
+    $node->type = 'carte';
+    $node->language = LANGUAGE_NONE;
+    $node->is_new = TRUE;
+  }
+  
+  // Nom du set
+  $node->field_set[LANGUAGE_NONE][0]['value'] = $source;
+  
+  foreach ($card as $property => $value) {
+    switch ($property) {
+      // Titre
+      case 'name':
+        $node->title = empty($value) ? $card->id : $value;
+        break;
+      // Valeurs numériques & booléennes
+      case 'cost':
+      case 'attack':
+      case 'health':
+      case 'durability':
+      case 'collectible':
+      case 'elite':
+        $node->{'field_' . $property}[LANGUAGE_NONE][0]['value'] = (int) $value;
+        break;
+      // Taxonomies
+      case 'type':
+      case 'rarity':
+      case 'faction':
+      case 'race':
+      case 'playerClass':
+        $property = strtolower($property);
+        $terms = taxonomy_get_term_by_name($value, $property);
+        if (!empty($terms)) {
+          $term = array_shift($terms);
+        }
+        else {
+          $vocab = taxonomy_vocabulary_machine_name_load($property);
+          
+          $term = new stdClass();
+          $term->name = $value;
+          $term->vid = $vocab->vid;
+          taxonomy_term_save($term);
+        }
+        $node->{'field_' . $property}[LANGUAGE_NONE][0]['tid'] = $term->tid;
+        break;
+      // Taxonomies tabulaires
+      case 'mechanics':
+        $property = strtolower($property);
+        $cpt = 0;
+        foreach ($value as $val) {
+          $terms = taxonomy_get_term_by_name($val, $property);
+          if (!empty($terms)) {
+            $term = array_shift($terms);
+          }
+          else {
+            $vocab = taxonomy_vocabulary_machine_name_load($property);
+      
+            $term = new stdClass();
+            $term->name = $val;
+            $term->vid = $vocab->vid;
+            taxonomy_term_save($term);
+          }
+          $node->{'field_' . $property}[LANGUAGE_NONE][$cpt++]['tid'] = $term->tid;
+        }
+        break;
+      // Défaut : valeurs textuelles
+      default:
+        $property = strtolower($property);
+        $node->{'field_' . $property}[LANGUAGE_NONE][0]['value'] = $value;
+        break;
+    }
+  }
+
+  // Image carte
+  if ($fic_picture = system_retrieve_file('http://wow.zamimg.com/images/hearthstone/cards/frfr/original/' . $card->id . '.png', NULL, TRUE, FILE_EXISTS_REPLACE)) {
+    $node->field_picture[LANGUAGE_NONE][0] = (array) $fic_picture;
+  }
+
+  // Image carte dorée
+  if ($fic_picturegold = system_retrieve_file('http://wow.zamimg.com/images/hearthstone/cards/frfr/animated/' . $card->id . '_premium.gif', NULL, TRUE, FILE_EXISTS_REPLACE)) {
+    $node->field_picturegold[LANGUAGE_NONE][0] = (array) $fic_picturegold;
+  }
+
+  //$message = drupal_get_messages('error');
+  
+  // Sauvegarde
+  $node = node_submit($node);
+  node_save($node);
+}
+
+function hs_import_batch_finished($success, $results, $operations) {
+  // The 'success' parameter means no fatal PHP errors were detected. All
+  // other error management should be handled using 'results'.
+  if ($success) {
+    $message = format_plural(count($results), 'Une carte importée.', '@count cartes importées.');
+  }
+  else {
+    $message = 'Une erreur est survenue.';
+  }
+  drupal_set_message($message);
+}
