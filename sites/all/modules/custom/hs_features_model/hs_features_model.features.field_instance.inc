@@ -633,7 +633,7 @@ function hs_features_model_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_picture',
-    'label' => 'picture',
+    'label' => 'image',
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
@@ -980,9 +980,9 @@ Note: Hearthstone internally uses \'Common\' rarity on several cards in the Basi
   t('howToGet');
   t('howToGetGold');
   t('id');
+  t('image');
   t('inPlayText');
   t('mechanics');
-  t('picture');
   t('pictureGold');
   t('playerClass');
   t('race');
