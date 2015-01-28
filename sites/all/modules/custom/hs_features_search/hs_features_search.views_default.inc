@@ -37,7 +37,7 @@ function hs_features_search_views_default_views() {
   $handler->display->display_options['pager']['options']['tags']['last'] = 'dernier »';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Champ: Indexed Nœud: picture */
+  /* Champ: Indexed Nœud: image */
   $handler->display->display_options['fields']['field_picture']['id'] = 'field_picture';
   $handler->display->display_options['fields']['field_picture']['table'] = 'search_api_index_index_hearthstone';
   $handler->display->display_options['fields']['field_picture']['field'] = 'field_picture';
