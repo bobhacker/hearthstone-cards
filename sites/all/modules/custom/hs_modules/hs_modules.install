@@ -1,0 +1,15 @@
+<?php
+/**
+ * @file hs_modules.install
+ */
+
+/**
+ * Implements hook_enable().
+ */
+function hs_modules_enable() {
+  module_enable(array(
+    'admin_menu_toolbar', 'devel', 'diff', 'context_ui', 'field_ui', 
+    'l10n_update', 'module_filter', 'views_ui',
+    'hs_features_model', 'hs_features_search', 'hs_import',
+  ));
+}
