@@ -57,14 +57,11 @@ function hs_import_batch_form($form, &$form_state) {
     '#title' => 'Vider la base avant import ?',
     '#default_value' => 0,
   );
+  $sets = array('Basic', 'Classic', 'Credits', 'Curse of Naxxramas', 'Debug', 'Goblins vs Gnomes', 'Missions', 'Promotion', 'Reward', 'System');
   $form['sets'] = array(
     '#type' => 'checkboxes',
-    '#title' => 'Importer le(s) set(s) suivant(s) :',
-    '#options' => array_combine(
-      array('Basic', 'Classic', 'Credits', 'Curse of Naxxramas', 'Debug', 'Goblins vs Gnomes', 'Missions', 'Promotion', 'Reward', 'System'), 
-      array('Basic', 'Classic', 'Credits', 'Curse of Naxxramas', 'Debug', 'Goblins vs Gnomes', 'Missions', 'Promotion', 'Reward', 'System')
-    ),
-    /*'#required' => TRUE,*/
+    '#title' => format_plural(count($sets), 'Importer le set suivant :', 'Importer le(s) set(s) suivant(s) :'),
+    '#options' => array_combine($sets, $sets),
   );
   $form['submit'] = array(
     '#type' => 'submit',
