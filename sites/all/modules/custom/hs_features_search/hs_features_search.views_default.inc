@@ -45,8 +45,8 @@ function hs_features_search_views_default_views() {
   $handler->display->display_options['fields']['field_picture']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_picture']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_picture']['settings'] = array(
-    'image_style' => '',
-    'image_link' => '',
+    'image_style' => 'width_100px',
+    'image_link' => 'content',
   );
   /* Champ: Indexed Nœud: Titre */
   $handler->display->display_options['fields']['title']['id'] = 'title';
@@ -54,7 +54,7 @@ function hs_features_search_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['title']['link_to_entity'] = 0;
+  $handler->display->display_options['fields']['title']['link_to_entity'] = 1;
   /* Champ: Indexed Nœud: flavor */
   $handler->display->display_options['fields']['field_flavor']['id'] = 'field_flavor';
   $handler->display->display_options['fields']['field_flavor']['table'] = 'search_api_index_index_hearthstone';

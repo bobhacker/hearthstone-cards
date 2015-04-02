@@ -16,8 +16,6 @@ function hs_features_model_taxonomy_default_vocabularies() {
       'hierarchy' => 0,
       'module' => 'taxonomy',
       'weight' => 0,
-      'language' => 'und',
-      'i18n_mode' => 0,
     ),
     'mechanics' => array(
       'name' => 'mechanics',
@@ -26,8 +24,6 @@ function hs_features_model_taxonomy_default_vocabularies() {
       'hierarchy' => 0,
       'module' => 'taxonomy',
       'weight' => 0,
-      'language' => 'und',
-      'i18n_mode' => 0,
     ),
     'playerclass' => array(
       'name' => 'playerClass',
@@ -36,8 +32,6 @@ function hs_features_model_taxonomy_default_vocabularies() {
       'hierarchy' => 0,
       'module' => 'taxonomy',
       'weight' => 0,
-      'language' => 'und',
-      'i18n_mode' => 0,
     ),
     'race' => array(
       'name' => 'race',
@@ -46,8 +40,6 @@ function hs_features_model_taxonomy_default_vocabularies() {
       'hierarchy' => 0,
       'module' => 'taxonomy',
       'weight' => 0,
-      'language' => 'und',
-      'i18n_mode' => 0,
     ),
     'rarity' => array(
       'name' => 'rarity',
@@ -56,8 +48,6 @@ function hs_features_model_taxonomy_default_vocabularies() {
       'hierarchy' => 0,
       'module' => 'taxonomy',
       'weight' => 0,
-      'language' => 'und',
-      'i18n_mode' => 0,
     ),
     'set' => array(
       'name' => 'set',
@@ -66,8 +56,6 @@ function hs_features_model_taxonomy_default_vocabularies() {
       'hierarchy' => 0,
       'module' => 'taxonomy',
       'weight' => 0,
-      'language' => 'und',
-      'i18n_mode' => 0,
     ),
     'type' => array(
       'name' => 'type',
@@ -76,8 +64,6 @@ function hs_features_model_taxonomy_default_vocabularies() {
       'hierarchy' => 0,
       'module' => 'taxonomy',
       'weight' => 0,
-      'language' => 'und',
-      'i18n_mode' => 0,
     ),
   );
 }

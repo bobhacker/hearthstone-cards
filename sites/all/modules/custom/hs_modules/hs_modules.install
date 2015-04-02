@@ -13,3 +13,10 @@ function hs_modules_enable() {
     'hs_features_model', 'hs_features_search', 'hs_import',
   ));
 }
+
+/**
+ * Activation du module Pathauto.
+ */
+function hs_modules_update_7000(&$sandbox) {
+  module_enable(array('pathauto', 'transliteration'));
+}

@@ -56,6 +56,7 @@ features[field_instance][] = node-carte-field_rarity
 features[field_instance][] = node-carte-field_set
 features[field_instance][] = node-carte-field_text
 features[field_instance][] = node-carte-field_type
+features[image][] = width_100px
 features[node][] = carte
 features[taxonomy][] = faction
 features[taxonomy][] = mechanics
