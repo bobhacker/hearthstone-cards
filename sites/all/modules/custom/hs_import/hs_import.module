@@ -57,7 +57,7 @@ function hs_import_batch_form($form, &$form_state) {
     '#title' => 'Vider la base avant import ?',
     '#default_value' => 0,
   );
-  $sets = array('Basic', 'Classic', 'Credits', 'Curse of Naxxramas', 'Debug', 'Goblins vs Gnomes', 'Missions', 'Promotion', 'Reward', 'System');
+  $sets = array('Basic', 'Blackrock Mountain', 'Classic', 'Credits', 'Curse of Naxxramas', 'Debug', 'Goblins vs Gnomes', 'Missions', 'Promotion', 'Reward', 'System');
   $form['sets'] = array(
     '#type' => 'checkboxes',
     '#title' => format_plural(count($sets), 'Importer le set suivant :', 'Importer le(s) set(s) suivant(s) :'),
@@ -74,6 +74,7 @@ function hs_import_batch_form($form, &$form_state) {
 function hs_import_batch_form_submit($form, &$form_state) {
   $sources = array(
     'Basic' => 'http://hearthstonejson.com/json/Basic.frFR.json',
+    'Blackrock Mountain' => 'http://hearthstonejson.com/json/Blackrock%20Mountain.frFR.json',
     'Classic' => 'http://hearthstonejson.com/json/Classic.frFR.json',
     'Credits' => 'http://hearthstonejson.com/json/Credits.frFR.json',
     'Curse of Naxxramas' => 'http://hearthstonejson.com/json/Curse%20of%20Naxxramas.frFR.json',
