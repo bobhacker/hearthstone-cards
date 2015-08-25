@@ -55,11 +55,18 @@ function hs_features_search_views_default_views() {
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['title']['link_to_entity'] = 1;
+  /* Champ: Indexed Nœud: text */
+  $handler->display->display_options['fields']['field_text']['id'] = 'field_text';
+  $handler->display->display_options['fields']['field_text']['table'] = 'search_api_index_index_hearthstone';
+  $handler->display->display_options['fields']['field_text']['field'] = 'field_text';
+  $handler->display->display_options['fields']['field_text']['label'] = '';
+  $handler->display->display_options['fields']['field_text']['element_label_colon'] = FALSE;
   /* Champ: Indexed Nœud: flavor */
   $handler->display->display_options['fields']['field_flavor']['id'] = 'field_flavor';
   $handler->display->display_options['fields']['field_flavor']['table'] = 'search_api_index_index_hearthstone';
   $handler->display->display_options['fields']['field_flavor']['field'] = 'field_flavor';
   $handler->display->display_options['fields']['field_flavor']['label'] = '';
+  $handler->display->display_options['fields']['field_flavor']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_flavor']['element_label_colon'] = FALSE;
   /* Sort criterion: Indexed Nœud: cost */
   $handler->display->display_options['sorts']['field_cost']['id'] = 'field_cost';
