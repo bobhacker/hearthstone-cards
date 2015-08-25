@@ -49,6 +49,7 @@ function hs_import_batch_form($form, &$form_state) {
   //http://hearthstonejson.com/json/Missions.frFR.json
   //http://hearthstonejson.com/json/Promotion.frFR.json
   //http://hearthstonejson.com/json/Reward.frFR.json
+  //http://hearthstonejson.com/json/The%20Grand%20Tournament.frFR.json
   //http://hearthstonejson.com/json/System.frFR.json
   
   $form = array();
@@ -57,7 +58,7 @@ function hs_import_batch_form($form, &$form_state) {
     '#title' => 'Vider la base avant import ?',
     '#default_value' => 0,
   );
-  $sets = array('Basic', 'Blackrock Mountain', 'Classic', 'Credits', 'Curse of Naxxramas', 'Debug', 'Goblins vs Gnomes', 'Missions', 'Promotion', 'Reward', 'System');
+  $sets = array('Basic', 'Blackrock Mountain', 'Classic', 'Credits', 'Curse of Naxxramas', 'Debug', 'Goblins vs Gnomes', 'Missions', 'Promotion', 'Reward', 'The Grand Tournament', 'System');
   $form['sets'] = array(
     '#type' => 'checkboxes',
     '#title' => format_plural(count($sets), 'Importer le set suivant :', 'Importer le(s) set(s) suivant(s) :'),
@@ -83,6 +84,7 @@ function hs_import_batch_form_submit($form, &$form_state) {
     'Missions' => 'http://hearthstonejson.com/json/Missions.frFR.json',
     'Promotion' => 'http://hearthstonejson.com/json/Promotion.frFR.json',
     'Reward' => 'http://hearthstonejson.com/json/Reward.frFR.json',
+    'The Grand Tournament' => 'http://hearthstonejson.com/json/The%20Grand%20Tournament.frFR.json',
     'System' => 'http://hearthstonejson.com/json/System.frFR.json',
   );
   
