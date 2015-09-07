@@ -14,10 +14,6 @@ Icon
 .Trashes
 
 
-### PhpStorm ###
-.idea
-
-
 ### Eclipse ###
 *.pydevproject
 .metadata
@@ -32,6 +28,7 @@ local.properties
 .settings/
 .loadpath
 .project
+
 
 # External tool builders
 .externalToolBuilders/
@@ -62,6 +59,7 @@ nbactions.xml
 nb-configuration.xml
 
 
+
 ### SASS ###
 ### Sass Ignores - "Sassy CSS" http://sass-lang.com/
 *.sass-cache
@@ -76,17 +74,14 @@ nb-configuration.xml
 # *.sublime-project
 
 
+
 #DRUPAL RELATED
-sites/*/settings.local.php
-sites/*/settings.daniel.php
-sites/*/settings.prod.php
-sites/*/settings.preprod.php
-sites/*/settings.pprod.php
-sites/*/settings.staging.php
-sites/*/clienv.php
-cache/
+sites/default/settings.local.php
+sites/default/settings.prod.php
+sites/default/settings.preprod.php
+sites/default/settings.staging.php
+sites/default/clienv.php
 
 # Ignore paths that contain user-generated content.
 sites/*/files
 sites/*/private
-sites/sites.php

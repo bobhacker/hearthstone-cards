@@ -37,7 +37,7 @@ function hs_features_search_views_default_views() {
   $handler->display->display_options['pager']['options']['tags']['last'] = 'dernier »';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Champ: Indexed Nœud: image */
+  /* Champ: Indexed Node: image */
   $handler->display->display_options['fields']['field_picture']['id'] = 'field_picture';
   $handler->display->display_options['fields']['field_picture']['table'] = 'search_api_index_index_hearthstone';
   $handler->display->display_options['fields']['field_picture']['field'] = 'field_picture';
@@ -45,56 +45,38 @@ function hs_features_search_views_default_views() {
   $handler->display->display_options['fields']['field_picture']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_picture']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_picture']['settings'] = array(
-    'image_style' => 'width_100px',
+    'image_style' => '',
     'image_link' => 'content',
   );
-  /* Champ: Indexed Nœud: Titre */
+  /* Champ: Indexed Node: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'search_api_index_index_hearthstone';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['title']['link_to_entity'] = 1;
-  /* Champ: Indexed Nœud: text */
-  $handler->display->display_options['fields']['field_text']['id'] = 'field_text';
-  $handler->display->display_options['fields']['field_text']['table'] = 'search_api_index_index_hearthstone';
-  $handler->display->display_options['fields']['field_text']['field'] = 'field_text';
-  $handler->display->display_options['fields']['field_text']['label'] = '';
-  $handler->display->display_options['fields']['field_text']['element_label_colon'] = FALSE;
-  /* Champ: Indexed Nœud: flavor */
-  $handler->display->display_options['fields']['field_flavor']['id'] = 'field_flavor';
-  $handler->display->display_options['fields']['field_flavor']['table'] = 'search_api_index_index_hearthstone';
-  $handler->display->display_options['fields']['field_flavor']['field'] = 'field_flavor';
-  $handler->display->display_options['fields']['field_flavor']['label'] = '';
-  $handler->display->display_options['fields']['field_flavor']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_flavor']['element_label_colon'] = FALSE;
-  /* Sort criterion: Indexed Nœud: cost */
+  /* Sort criterion: Indexed Node: cost */
   $handler->display->display_options['sorts']['field_cost']['id'] = 'field_cost';
   $handler->display->display_options['sorts']['field_cost']['table'] = 'search_api_index_index_hearthstone';
   $handler->display->display_options['sorts']['field_cost']['field'] = 'field_cost';
-  /* Sort criterion: Indexed Nœud: attack */
-  $handler->display->display_options['sorts']['field_attack']['id'] = 'field_attack';
-  $handler->display->display_options['sorts']['field_attack']['table'] = 'search_api_index_index_hearthstone';
-  $handler->display->display_options['sorts']['field_attack']['field'] = 'field_attack';
-  /* Sort criterion: Indexed Nœud: health */
-  $handler->display->display_options['sorts']['field_health']['id'] = 'field_health';
-  $handler->display->display_options['sorts']['field_health']['table'] = 'search_api_index_index_hearthstone';
-  $handler->display->display_options['sorts']['field_health']['field'] = 'field_health';
-  /* Sort criterion: Indexed Nœud: durability */
-  $handler->display->display_options['sorts']['field_durability']['id'] = 'field_durability';
-  $handler->display->display_options['sorts']['field_durability']['table'] = 'search_api_index_index_hearthstone';
-  $handler->display->display_options['sorts']['field_durability']['field'] = 'field_durability';
-  /* Sort criterion: Indexed Nœud: Titre */
+  /* Sort criterion: Indexed Node: Title */
   $handler->display->display_options['sorts']['title']['id'] = 'title';
   $handler->display->display_options['sorts']['title']['table'] = 'search_api_index_index_hearthstone';
   $handler->display->display_options['sorts']['title']['field'] = 'title';
-  /* Filter criterion: Indexed Nœud: collectible */
+  /* Filter criterion: Indexed Node: collectible */
   $handler->display->display_options['filters']['field_collectible']['id'] = 'field_collectible';
   $handler->display->display_options['filters']['field_collectible']['table'] = 'search_api_index_index_hearthstone';
   $handler->display->display_options['filters']['field_collectible']['field'] = 'field_collectible';
   $handler->display->display_options['filters']['field_collectible']['value'] = array(
     1 => '1',
   );
+  $handler->display->display_options['filters']['field_collectible']['group'] = 1;
+  /* Filter criterion: image: The image file. (indexed) */
+  $handler->display->display_options['filters']['field_picture_file']['id'] = 'field_picture_file';
+  $handler->display->display_options['filters']['field_picture_file']['table'] = 'search_api_index_index_hearthstone';
+  $handler->display->display_options['filters']['field_picture_file']['field'] = 'field_picture_file';
+  $handler->display->display_options['filters']['field_picture_file']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_picture_file']['group'] = 1;
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');

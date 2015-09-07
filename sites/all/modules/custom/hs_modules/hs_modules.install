@@ -1,7 +1,9 @@
 <?php
 /**
  * @file hs_modules.install
+ * Gestion générale des modules Hearthstone.
  */
+
 
 /**
  * Implements hook_enable().
@@ -13,6 +15,7 @@ function hs_modules_enable() {
     'hs_features_model', 'hs_features_search', 'hs_import',
   ));
 }
+
 
 /**
  * Activation du module Pathauto.

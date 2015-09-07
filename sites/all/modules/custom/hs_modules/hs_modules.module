@@ -1,6 +1,7 @@
 <?php 
 /**
  * @file hs_modules.module
+ * Gestion générale des modules Hearthstone.
  */
 
 //
