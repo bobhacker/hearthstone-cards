@@ -55,15 +55,15 @@ function hs_features_search_views_default_views() {
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['title']['link_to_entity'] = 1;
-  /* Sort criterion: Indexed Node: cost */
+  /* Critère de tri: Indexed Node: cost */
   $handler->display->display_options['sorts']['field_cost']['id'] = 'field_cost';
   $handler->display->display_options['sorts']['field_cost']['table'] = 'search_api_index_index_hearthstone';
   $handler->display->display_options['sorts']['field_cost']['field'] = 'field_cost';
-  /* Sort criterion: Indexed Node: Title */
+  /* Critère de tri: Indexed Node: Title */
   $handler->display->display_options['sorts']['title']['id'] = 'title';
   $handler->display->display_options['sorts']['title']['table'] = 'search_api_index_index_hearthstone';
   $handler->display->display_options['sorts']['title']['field'] = 'title';
-  /* Filter criterion: Indexed Node: collectible */
+  /* Critère de filtrage: Indexed Node: collectible */
   $handler->display->display_options['filters']['field_collectible']['id'] = 'field_collectible';
   $handler->display->display_options['filters']['field_collectible']['table'] = 'search_api_index_index_hearthstone';
   $handler->display->display_options['filters']['field_collectible']['field'] = 'field_collectible';
@@ -71,7 +71,7 @@ function hs_features_search_views_default_views() {
     1 => '1',
   );
   $handler->display->display_options['filters']['field_collectible']['group'] = 1;
-  /* Filter criterion: image: The image file. (indexed) */
+  /* Critère de filtrage: image: The image file. (indexed) */
   $handler->display->display_options['filters']['field_picture_file']['id'] = 'field_picture_file';
   $handler->display->display_options['filters']['field_picture_file']['table'] = 'search_api_index_index_hearthstone';
   $handler->display->display_options['filters']['field_picture_file']['field'] = 'field_picture_file';

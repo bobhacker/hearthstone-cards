@@ -229,14 +229,16 @@ function hs_import_batch_process_import_card($card, $source) {
   }
 
   // Image carte
-  $url = 'http://wow.zamimg.com/images/hearthstone/cards/frfr/original/' . $card->id . '.png'; 
-  if (file_exists($url) && ($fic_picture = system_retrieve_file($url, NULL, TRUE, FILE_EXISTS_REPLACE))) {
+  $url = 'http://wow.zamimg.com/images/hearthstone/cards/frfr/original/' . $card->id . '.png';
+  $file_headers = @get_headers($url);
+  if (($file_headers[0] == 'HTTP/1.0 200 OK') && ($fic_picture = system_retrieve_file($url, NULL, TRUE, FILE_EXISTS_REPLACE))) {
     $node->field_picture[LANGUAGE_NONE][0] = (array) $fic_picture;
   }
 
   // Image carte dorée
   $url = 'http://wow.zamimg.com/images/hearthstone/cards/frfr/animated/' . $card->id . '_premium.gif';
-  if (file_exists($url) && ($fic_picturegold = system_retrieve_file($url, NULL, TRUE, FILE_EXISTS_REPLACE))) {
+  $file_headers = @get_headers($url);
+  if (($file_headers[0] == 'HTTP/1.0 200 OK') && ($fic_picturegold = system_retrieve_file($url, NULL, TRUE, FILE_EXISTS_REPLACE))) {
     $node->field_picturegold[LANGUAGE_NONE][0] = (array) $fic_picturegold;
   }
 
