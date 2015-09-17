@@ -76,11 +76,11 @@ nb-configuration.xml
 
 
 #DRUPAL RELATED
-sites/default/settings.local.php
-sites/default/settings.prod.php
-sites/default/settings.preprod.php
-sites/default/settings.staging.php
-sites/default/clienv.php
+sites/*/settings.local.php
+sites/*/settings.prod.php
+sites/*/settings.preprod.php
+sites/*/settings.staging.php
+sites/*/clienv.php
 
 # Ignore paths that contain user-generated content.
 sites/*/files
