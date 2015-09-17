@@ -1,0 +1,187 @@
+<?php
+/**
+ * @file hsc.module
+ * Hearthstone cards management.
+ */
+
+
+/**
+ * Implements hook_action_info().
+ */
+function hsc_action_info() {
+  return array(
+    'hsc_import_from_feed' => array(
+      'type' => 'node',
+      'label' => t('Import from this feed'),
+      'behavior' => 'import_from_feed',
+      'configurable' => FALSE,
+      'vbo_configurable' => FALSE,
+      'triggers' => array('any'),
+    ),
+  );
+}
+
+
+/**
+ * ACTION!
+ */
+function hsc_import_from_feed(&$node, $context) {
+  $operations = array();
+  
+  $feed_url = field_get_items('node', $node, 'field_url');
+  if ($feed_url !== FALSE) {
+    $data_json = file_get_contents($feed_url[0]['value']);
+    $data = json_decode($data_json);
+    foreach ($data as $card) {
+      $operations[] = array('hs_import_batch_process', array($card, $node));
+    }
+  }
+  
+  if (!empty($operations)) {
+    $batch = array(
+      'title' => 'Import',
+      'operations' => $operations,
+      'finished' => 'hs_import_batch_finished',
+    );
+    batch_set($batch);
+  }
+}
+
+
+function hs_import_batch_process($card, $feed, &$context) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node');
+  $query->entityCondition('bundle', 'card');
+  $query->fieldCondition('field_id', 'value', $card->id, '=');
+  $query->range(0, 1);
+  $result = $query->execute();
+  $card_name = empty($card->name) ? $card->id : $card->name;
+  if (isset($result['node'])) {
+    $context['message'] = t('Updating %card_name [from %feed_name feed].', array('%card_name' => $card_name, '%feed_name' => $feed->title));
+  }
+  else {
+    $context['message'] = t('Importing %card_name [from %feed_name feed].', array('%card_name' => $card_name, '%feed_name' => $feed->title));
+  }
+  hs_import_batch_process_import_card($card, $feed);
+  $context['results'][] = check_plain($card_name) . ' [' . check_plain($card->id) . '].';
+}
+
+
+function hs_import_batch_process_import_card($card, $feed) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node');
+  $query->entityCondition('bundle', 'card');
+  $query->fieldCondition('field_id', 'value', $card->id, '=');
+  $query->range(0, 1);
+  $result = $query->execute();
+  if (isset($result['node'])) {
+    $node = array_shift($result['node']);
+    $node = node_load($node->nid);
+  }
+  else {
+    $node = new stdClass();
+    $node->type = 'card';
+    $node->language = 'en';
+    $node->is_new = TRUE;
+    node_object_prepare($node);
+  }
+
+  // Association du flux source
+  $node->field_feed[LANGUAGE_NONE][0]['target_id'] = $feed->nid;
+  
+  // Autres valeurs
+  foreach ($card as $property => $value) {
+    switch ($property) {
+      // Titre
+      case 'name':
+        $node->title = empty($value) ? $card->id : $value;
+        break;
+      // Valeurs numériques & booléennes
+      case 'cost':
+      case 'attack':
+      case 'health':
+      case 'durability':
+      case 'collectible':
+      case 'elite':
+        $node->{'field_' . $property}[LANGUAGE_NONE][0]['value'] = (int) $value;
+        break;
+      // Taxonomies
+      case 'type':
+      case 'rarity':
+      case 'faction':
+      case 'race':
+      case 'playerClass':
+        $property = strtolower($property);
+        $terms = taxonomy_get_term_by_name($value, $property);
+        if (!empty($terms)) {
+          $term = array_shift($terms);
+        }
+        else {
+          $vocab = taxonomy_vocabulary_machine_name_load($property);
+
+          $term = new stdClass();
+          $term->name = $value;
+          $term->vid = $vocab->vid;
+          taxonomy_term_save($term);
+        }
+        $node->{'field_' . $property}[LANGUAGE_NONE][0]['target_id'] = $term->tid;
+        break;
+      // Taxonomies multiples
+      case 'mechanics':
+        $property = strtolower($property);
+        $cpt = 0;
+        foreach ($value as $val) {
+          $terms = taxonomy_get_term_by_name($val, $property);
+          if (!empty($terms)) {
+            $term = array_shift($terms);
+          }
+          else {
+            $vocab = taxonomy_vocabulary_machine_name_load($property);
+
+            $term = new stdClass();
+            $term->name = $val;
+            $term->vid = $vocab->vid;
+            taxonomy_term_save($term);
+          }
+          $node->{'field_' . $property}[LANGUAGE_NONE][$cpt++]['target_id'] = $term->tid;
+        }
+        break;
+      // Défaut : valeurs textuelles
+      default:
+        $property = strtolower($property);
+        $node->{'field_' . $property}[LANGUAGE_NONE][0]['value'] = $value;
+        break;
+    }
+  }
+
+  // Image carte
+  $url = 'http://wow.zamimg.com/images/hearthstone/cards/frfr/original/' . $card->id . '.png';
+  $file_headers = @get_headers($url);
+  if (($file_headers[0] == 'HTTP/1.0 200 OK') && ($fic_picture = system_retrieve_file($url, NULL, TRUE, FILE_EXISTS_REPLACE))) {
+    $node->field_picture[LANGUAGE_NONE][0] = (array) $fic_picture;
+  }
+
+  // Image carte dorée
+  $url = 'http://wow.zamimg.com/images/hearthstone/cards/frfr/animated/' . $card->id . '_premium.gif';
+  $file_headers = @get_headers($url);
+  if (($file_headers[0] == 'HTTP/1.0 200 OK') && ($fic_picturegold = system_retrieve_file($url, NULL, TRUE, FILE_EXISTS_REPLACE))) {
+    $node->field_picturegold[LANGUAGE_NONE][0] = (array) $fic_picturegold;
+  }
+
+  // Sauvegarde
+  $node = node_submit($node);
+  node_save($node);
+}
+
+
+function hs_import_batch_finished($success, $results, $operations) {
+  // The 'success' parameter means no fatal PHP errors were detected. All
+  // other error management should be handled using 'results'.
+  if ($success) {
+    $message = format_plural(count($results), 'One card was successfully imported.', '@count cards were successfully imported.');
+  }
+  else {
+    $message = t('An error has occured.');
+  }
+  drupal_set_message($message);
+}
