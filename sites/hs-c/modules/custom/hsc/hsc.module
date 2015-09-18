@@ -28,7 +28,7 @@ function hsc_action_info() {
 function hsc_import_from_feed(&$node, $context) {
   $operations = array();
   
-  $feed_url = field_get_items('node', $node, 'field_url', 'en');
+  $feed_url = field_get_items('node', $node, 'field_url', 'en'); // $_SESSION['lang_import']
   if ($feed_url !== FALSE) {
     $data_json = file_get_contents($feed_url[0]['value']);
     $data = json_decode($data_json);
@@ -73,15 +73,15 @@ function hs_import_batch_process_import_card($card, $feed) {
   $query->entityCondition('bundle', 'card');
   $query->fieldCondition('field_id', 'value', $card->id, '=');
   $query->range(0, 1);
-  $result = $query->execute();
-  if (isset($result['node'])) {
-    $node = array_shift($result['node']);
-    $node = node_load($node->nid);
+  $results = $query->execute();
+  if (isset($results['node'])) {
+    $result = array_shift($results['node']);
+    $node = node_load($result->nid);
   }
   else {
     $node = new stdClass();
     $node->type = 'card';
-    $node->language = 'en';
+    $node->language = 'en'; // $_SESSION['lang_import']
     $node->is_new = TRUE;
     node_object_prepare($node);
   }
@@ -122,6 +122,7 @@ function hs_import_batch_process_import_card($card, $feed) {
           $term = new stdClass();
           $term->name = $value;
           $term->vid = $vocab->vid;
+          $term->language = 'en'; // $_SESSION['lang_import']
           taxonomy_term_save($term);
         }
         $node->{'field_' . $property}[LANGUAGE_NONE][0]['target_id'] = $term->tid;
@@ -141,6 +142,7 @@ function hs_import_batch_process_import_card($card, $feed) {
             $term = new stdClass();
             $term->name = $val;
             $term->vid = $vocab->vid;
+            $term->language = 'en'; // $_SESSION['lang_import']
             taxonomy_term_save($term);
           }
           $node->{'field_' . $property}[LANGUAGE_NONE][$cpt++]['target_id'] = $term->tid;
