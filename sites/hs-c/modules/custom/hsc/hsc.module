@@ -28,7 +28,7 @@ function hsc_action_info() {
 function hsc_import_from_feed(&$node, $context) {
   $operations = array();
   
-  $feed_url = field_get_items('node', $node, 'field_url');
+  $feed_url = field_get_items('node', $node, 'field_url', 'en');
   if ($feed_url !== FALSE) {
     $data_json = file_get_contents($feed_url[0]['value']);
     $data = json_decode($data_json);
