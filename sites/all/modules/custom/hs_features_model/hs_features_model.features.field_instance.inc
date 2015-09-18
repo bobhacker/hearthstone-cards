@@ -10,9 +10,9 @@
 function hs_features_model_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-carte-field_artist'
-  $field_instances['node-carte-field_artist'] = array(
-    'bundle' => 'carte',
+  // Exported field_instance: 'node-card-field_artist'
+  $field_instances['node-card-field_artist'] = array(
+    'bundle' => 'card',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => 'The artist of the card.',
@@ -47,13 +47,13 @@ function hs_features_model_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 15,
+      'weight' => 11,
     ),
   );
 
-  // Exported field_instance: 'node-carte-field_attack'
-  $field_instances['node-carte-field_attack'] = array(
-    'bundle' => 'carte',
+  // Exported field_instance: 'node-card-field_attack'
+  $field_instances['node-card-field_attack'] = array(
+    'bundle' => 'card',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => 'The attack of the card. Used for both Minions and Weapons.',
@@ -94,13 +94,13 @@ function hs_features_model_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 16,
+      'weight' => 12,
     ),
   );
 
-  // Exported field_instance: 'node-carte-field_collectible'
-  $field_instances['node-carte-field_collectible'] = array(
-    'bundle' => 'carte',
+  // Exported field_instance: 'node-card-field_collectible'
+  $field_instances['node-card-field_collectible'] = array(
+    'bundle' => 'card',
     'default_value' => array(
       0 => array(
         'value' => 0,
@@ -113,7 +113,7 @@ function hs_features_model_field_default_field_instances() {
         'label' => 'above',
         'module' => 'list',
         'settings' => array(),
-        'type' => 'list_default',
+        'type' => 'list_key',
         'weight' => 18,
       ),
       'teaser' => array(
@@ -138,13 +138,13 @@ function hs_features_model_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 19,
+      'weight' => 16,
     ),
   );
 
-  // Exported field_instance: 'node-carte-field_cost'
-  $field_instances['node-carte-field_cost'] = array(
-    'bundle' => 'carte',
+  // Exported field_instance: 'node-card-field_cost'
+  $field_instances['node-card-field_cost'] = array(
+    'bundle' => 'card',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => 'The mana cost of this card.',
@@ -185,13 +185,13 @@ function hs_features_model_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 4,
+      'weight' => 1,
     ),
   );
 
-  // Exported field_instance: 'node-carte-field_durability'
-  $field_instances['node-carte-field_durability'] = array(
-    'bundle' => 'carte',
+  // Exported field_instance: 'node-card-field_durability'
+  $field_instances['node-card-field_durability'] = array(
+    'bundle' => 'card',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => 'The durability of the card. Used for Weapons.',
@@ -232,13 +232,13 @@ function hs_features_model_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 18,
+      'weight' => 14,
     ),
   );
 
-  // Exported field_instance: 'node-carte-field_elite'
-  $field_instances['node-carte-field_elite'] = array(
-    'bundle' => 'carte',
+  // Exported field_instance: 'node-card-field_elite'
+  $field_instances['node-card-field_elite'] = array(
+    'bundle' => 'card',
     'default_value' => array(
       0 => array(
         'value' => 0,
@@ -251,7 +251,7 @@ function hs_features_model_field_default_field_instances() {
         'label' => 'above',
         'module' => 'list',
         'settings' => array(),
-        'type' => 'list_default',
+        'type' => 'list_key',
         'weight' => 19,
       ),
       'teaser' => array(
@@ -276,23 +276,25 @@ function hs_features_model_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 20,
+      'weight' => 17,
     ),
   );
 
-  // Exported field_instance: 'node-carte-field_faction'
-  $field_instances['node-carte-field_faction'] = array(
-    'bundle' => 'carte',
+  // Exported field_instance: 'node-card-field_faction'
+  $field_instances['node-card-field_faction'] = array(
+    'bundle' => 'card',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'The faction of the card. Example values: Alliance, Horde, Neutral',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 6,
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 24,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -303,7 +305,52 @@ function hs_features_model_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_faction',
-    'label' => 'faction',
+    'label' => 'Faction',
+    'required' => 0,
+    'settings' => array(
+      'behaviors' => array(
+        'taxonomy-index' => array(
+          'status' => TRUE,
+        ),
+      ),
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'node-card-field_feed'
+  $field_instances['node-card-field_feed'] = array(
+    'bundle' => 'card',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 28,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_feed',
+    'label' => 'Feed',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -314,13 +361,13 @@ function hs_features_model_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 7,
+      'weight' => 22,
     ),
   );
 
-  // Exported field_instance: 'node-carte-field_flavor'
-  $field_instances['node-carte-field_flavor'] = array(
-    'bundle' => 'carte',
+  // Exported field_instance: 'node-card-field_flavor'
+  $field_instances['node-card-field_flavor'] = array(
+    'bundle' => 'card',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => 'The flavor text of the card.',
@@ -355,13 +402,13 @@ function hs_features_model_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 14,
+      'weight' => 10,
     ),
   );
 
-  // Exported field_instance: 'node-carte-field_health'
-  $field_instances['node-carte-field_health'] = array(
-    'bundle' => 'carte',
+  // Exported field_instance: 'node-card-field_health'
+  $field_instances['node-card-field_health'] = array(
+    'bundle' => 'card',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => 'The health of the card. Used for Minions.',
@@ -402,13 +449,13 @@ function hs_features_model_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 17,
+      'weight' => 13,
     ),
   );
 
-  // Exported field_instance: 'node-carte-field_howtoget'
-  $field_instances['node-carte-field_howtoget'] = array(
-    'bundle' => 'carte',
+  // Exported field_instance: 'node-card-field_howtoget'
+  $field_instances['node-card-field_howtoget'] = array(
+    'bundle' => 'card',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => 'How to get this card. Only present if it\'s gotten via a method other than opening a booster pack.',
@@ -443,13 +490,13 @@ function hs_features_model_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 21,
+      'weight' => 18,
     ),
   );
 
-  // Exported field_instance: 'node-carte-field_howtogetgold'
-  $field_instances['node-carte-field_howtogetgold'] = array(
-    'bundle' => 'carte',
+  // Exported field_instance: 'node-card-field_howtogetgold'
+  $field_instances['node-card-field_howtogetgold'] = array(
+    'bundle' => 'card',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => 'How to get the gold version of this card. Only present if it\'s gotten via a method other than opening a booster pack.',
@@ -484,13 +531,13 @@ function hs_features_model_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 22,
+      'weight' => 19,
     ),
   );
 
-  // Exported field_instance: 'node-carte-field_id'
-  $field_instances['node-carte-field_id'] = array(
-    'bundle' => 'carte',
+  // Exported field_instance: 'node-card-field_id'
+  $field_instances['node-card-field_id'] = array(
+    'bundle' => 'card',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => 'The Hearthstone ID of the card.',
@@ -525,13 +572,13 @@ function hs_features_model_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 2,
+      'weight' => 15,
     ),
   );
 
-  // Exported field_instance: 'node-carte-field_inplaytext'
-  $field_instances['node-carte-field_inplaytext'] = array(
-    'bundle' => 'carte',
+  // Exported field_instance: 'node-card-field_inplaytext'
+  $field_instances['node-card-field_inplaytext'] = array(
+    'bundle' => 'card',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => 'The text of the card when it is in play. May contain HTML tags and other symbols which are present in the Hearthstones files as presented here.',
@@ -566,23 +613,25 @@ function hs_features_model_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 12,
+      'weight' => 8,
     ),
   );
 
-  // Exported field_instance: 'node-carte-field_mechanics'
-  $field_instances['node-carte-field_mechanics'] = array(
-    'bundle' => 'carte',
+  // Exported field_instance: 'node-card-field_mechanics'
+  $field_instances['node-card-field_mechanics'] = array(
+    'bundle' => 'card',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'The mechanics of the card. Example values: Windfury, Combo, Secret, Battlecry, Deathrattle, Taunt',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 12,
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 27,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -593,24 +642,33 @@ function hs_features_model_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_mechanics',
-    'label' => 'mechanics',
+    'label' => 'Mechanics',
     'required' => 0,
     'settings' => array(
+      'behaviors' => array(
+        'taxonomy-index' => array(
+          'status' => TRUE,
+        ),
+      ),
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 13,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 9,
     ),
   );
 
-  // Exported field_instance: 'node-carte-field_picture'
-  $field_instances['node-carte-field_picture'] = array(
-    'bundle' => 'carte',
+  // Exported field_instance: 'node-card-field_picture'
+  $field_instances['node-card-field_picture'] = array(
+    'bundle' => 'card',
     'deleted' => 0,
     'description' => 'The picture of the card.',
     'display' => array(
@@ -633,7 +691,7 @@ function hs_features_model_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_picture',
-    'label' => 'image',
+    'label' => 'picture',
     'required' => 0,
     'settings' => array(
       'alt_field' => 1,
@@ -655,13 +713,13 @@ function hs_features_model_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 0,
+      'weight' => 20,
     ),
   );
 
-  // Exported field_instance: 'node-carte-field_picturegold'
-  $field_instances['node-carte-field_picturegold'] = array(
-    'bundle' => 'carte',
+  // Exported field_instance: 'node-card-field_picturegold'
+  $field_instances['node-card-field_picturegold'] = array(
+    'bundle' => 'card',
     'deleted' => 0,
     'description' => 'Gold version of the card.',
     'display' => array(
@@ -706,23 +764,25 @@ function hs_features_model_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 1,
+      'weight' => 21,
     ),
   );
 
-  // Exported field_instance: 'node-carte-field_playerclass'
-  $field_instances['node-carte-field_playerclass'] = array(
-    'bundle' => 'carte',
+  // Exported field_instance: 'node-card-field_playerclass'
+  $field_instances['node-card-field_playerclass'] = array(
+    'bundle' => 'card',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'The player class this card belongs to. Example values: Druid, Hunter, Mage, Paladin',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 8,
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 26,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -733,87 +793,14 @@ function hs_features_model_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_playerclass',
-    'label' => 'playerClass',
+    'label' => 'Player class',
     'required' => 0,
     'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 9,
-    ),
-  );
-
-  // Exported field_instance: 'node-carte-field_race'
-  $field_instances['node-carte-field_race'] = array(
-    'bundle' => 'carte',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'The race of the card. Example values: Murloc, Demon, Beast, Totem, Pirate, Dragon',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 7,
+      'behaviors' => array(
+        'taxonomy-index' => array(
+          'status' => TRUE,
+        ),
       ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_race',
-    'label' => 'race',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 8,
-    ),
-  );
-
-  // Exported field_instance: 'node-carte-field_rarity'
-  $field_instances['node-carte-field_rarity'] = array(
-    'bundle' => 'carte',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'The rarity of the card. Example values: Free, Common, Rare, Epic, Legendary
-Note: Hearthstone internally uses \'Common\' rarity on several cards in the Basic set that are obtained for free.
-      Thus these cards show a \'Common\' rarity even though the player gets them freely.',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 5,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_rarity',
-    'label' => 'rarity',
-    'required' => 0,
-    'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
@@ -826,19 +813,21 @@ Note: Hearthstone internally uses \'Common\' rarity on several cards in the Basi
     ),
   );
 
-  // Exported field_instance: 'node-carte-field_set'
-  $field_instances['node-carte-field_set'] = array(
-    'bundle' => 'carte',
+  // Exported field_instance: 'node-card-field_race'
+  $field_instances['node-card-field_race'] = array(
+    'bundle' => 'card',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 9,
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 25,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -848,10 +837,15 @@ Note: Hearthstone internally uses \'Common\' rarity on several cards in the Basi
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_set',
-    'label' => 'set',
+    'field_name' => 'field_race',
+    'label' => 'Race',
     'required' => 0,
     'settings' => array(
+      'behaviors' => array(
+        'taxonomy-index' => array(
+          'status' => TRUE,
+        ),
+      ),
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
@@ -860,13 +854,58 @@ Note: Hearthstone internally uses \'Common\' rarity on several cards in the Basi
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 10,
+      'weight' => 5,
     ),
   );
 
-  // Exported field_instance: 'node-carte-field_text'
-  $field_instances['node-carte-field_text'] = array(
-    'bundle' => 'carte',
+  // Exported field_instance: 'node-card-field_rarity'
+  $field_instances['node-card-field_rarity'] = array(
+    'bundle' => 'card',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 23,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_rarity',
+    'label' => 'Rarity',
+    'required' => 0,
+    'settings' => array(
+      'behaviors' => array(
+        'taxonomy-index' => array(
+          'status' => TRUE,
+        ),
+      ),
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance: 'node-card-field_text'
+  $field_instances['node-card-field_text'] = array(
+    'bundle' => 'card',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => 'The text of the card when it is in your hand. May contain HTML tags and other symbols which are present in the Hearthstones files as presented here.',
@@ -901,23 +940,25 @@ Note: Hearthstone internally uses \'Common\' rarity on several cards in the Basi
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 11,
+      'weight' => 7,
     ),
   );
 
-  // Exported field_instance: 'node-carte-field_type'
-  $field_instances['node-carte-field_type'] = array(
-    'bundle' => 'carte',
+  // Exported field_instance: 'node-card-field_type'
+  $field_instances['node-card-field_type'] = array(
+    'bundle' => 'card',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'The card type. Example values: Minion, Spell, Weapon, Hero, Hero Power, Enchantment',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 4,
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 22,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -928,9 +969,14 @@ Note: Hearthstone internally uses \'Common\' rarity on several cards in the Basi
     ),
     'entity_type' => 'node',
     'field_name' => 'field_type',
-    'label' => 'type',
+    'label' => 'Type',
     'required' => 0,
     'settings' => array(
+      'behaviors' => array(
+        'taxonomy-index' => array(
+          'status' => TRUE,
+        ),
+      ),
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
@@ -939,34 +985,119 @@ Note: Hearthstone internally uses \'Common\' rarity on several cards in the Basi
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 5,
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'node-card_feed-field_url'
+  $field_instances['node-card_feed-field_url'] = array(
+    'bundle' => 'card_feed',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 2,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_url',
+    'label' => 'URL',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'node-card_feed-title_field'
+  $field_instances['node-card_feed-title_field'] = array(
+    'bundle' => 'card_feed',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'title_field',
+    'label' => 'Title',
+    'required' => TRUE,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => FALSE,
+        'page' => FALSE,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 0,
     ),
   );
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Faction');
+  t('Feed');
   t('Gold version of the card.');
   t('How to get the gold version of this card. Only present if it\'s gotten via a method other than opening a booster pack.');
   t('How to get this card. Only present if it\'s gotten via a method other than opening a booster pack.');
   t('If this card can be acquired by the player, this is true. false otherwise.');
+  t('Mechanics');
+  t('Player class');
+  t('Race');
+  t('Rarity');
   t('The Hearthstone ID of the card.');
   t('The artist of the card.');
   t('The attack of the card. Used for both Minions and Weapons.');
-  t('The card type. Example values: Minion, Spell, Weapon, Hero, Hero Power, Enchantment');
   t('The durability of the card. Used for Weapons.');
-  t('The faction of the card. Example values: Alliance, Horde, Neutral');
   t('The flavor text of the card.');
   t('The health of the card. Used for Minions.');
   t('The mana cost of this card.');
-  t('The mechanics of the card. Example values: Windfury, Combo, Secret, Battlecry, Deathrattle, Taunt');
   t('The picture of the card.');
-  t('The player class this card belongs to. Example values: Druid, Hunter, Mage, Paladin');
-  t('The race of the card. Example values: Murloc, Demon, Beast, Totem, Pirate, Dragon');
-  t('The rarity of the card. Example values: Free, Common, Rare, Epic, Legendary
-Note: Hearthstone internally uses \'Common\' rarity on several cards in the Basic set that are obtained for free.
-      Thus these cards show a \'Common\' rarity even though the player gets them freely.');
   t('The text of the card when it is in play. May contain HTML tags and other symbols which are present in the Hearthstones files as presented here.');
   t('The text of the card when it is in your hand. May contain HTML tags and other symbols which are present in the Hearthstones files as presented here.');
+  t('Title');
+  t('Type');
+  t('URL');
   t('Whether or not this card is elite.');
   t('artist');
   t('attack');
@@ -974,22 +1105,15 @@ Note: Hearthstone internally uses \'Common\' rarity on several cards in the Basi
   t('cost');
   t('durability');
   t('elite');
-  t('faction');
   t('flavor');
   t('health');
   t('howToGet');
   t('howToGetGold');
   t('id');
-  t('image');
   t('inPlayText');
-  t('mechanics');
+  t('picture');
   t('pictureGold');
-  t('playerClass');
-  t('race');
-  t('rarity');
-  t('set');
   t('text');
-  t('type');
 
   return $field_instances;
 }
