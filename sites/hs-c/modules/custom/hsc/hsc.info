@@ -3,3 +3,5 @@ description = Hearthstone cards management.
 core = 7.x
 package = HSC
 version = 7.x-1.0
+dependencies[] = hs_features_model
+dependencies[] = hs_features_search
