@@ -28,54 +28,43 @@ function hs_features_search_views_api($module = NULL, $api = NULL) {
  */
 function hs_features_search_default_search_api_index() {
   $items = array();
-  $items['index_hearthstone'] = entity_import('search_api_index', '{
-    "name" : "Index Hearthstone",
-    "machine_name" : "index_hearthstone",
+  $items['hearthstone'] = entity_import('search_api_index', '{
+    "name" : "Hearthstone index",
+    "machine_name" : "hearthstone",
     "description" : null,
-    "server" : "serveur_hearthstone",
+    "server" : "hearthstone",
     "item_type" : "node",
     "options" : {
+      "datasource" : { "bundles" : [ "card" ] },
       "index_directly" : 1,
-      "cron_limit" : "50",
+      "cron_limit" : "100",
       "fields" : {
-        "field_artist" : { "type" : "text" },
-        "field_attack" : { "type" : "integer" },
         "field_collectible" : { "type" : "boolean" },
         "field_cost" : { "type" : "integer" },
-        "field_durability" : { "type" : "integer" },
-        "field_elite" : { "type" : "boolean" },
         "field_faction" : { "type" : "integer", "entity_type" : "taxonomy_term" },
-        "field_flavor" : { "type" : "text" },
-        "field_health" : { "type" : "integer" },
-        "field_howtoget" : { "type" : "text" },
-        "field_howtogetgold" : { "type" : "text" },
-        "field_id" : { "type" : "text" },
-        "field_inplaytext" : { "type" : "text" },
+        "field_feed" : { "type" : "integer", "entity_type" : "node" },
         "field_mechanics" : { "type" : "list\\u003Cinteger\\u003E", "entity_type" : "taxonomy_term" },
-        "field_picture:file" : { "type" : "integer", "entity_type" : "file" },
-        "field_picturegold:file" : { "type" : "integer", "entity_type" : "file" },
         "field_playerclass" : { "type" : "integer", "entity_type" : "taxonomy_term" },
         "field_race" : { "type" : "integer", "entity_type" : "taxonomy_term" },
         "field_rarity" : { "type" : "integer", "entity_type" : "taxonomy_term" },
-        "field_set" : { "type" : "integer", "entity_type" : "taxonomy_term" },
-        "field_text" : { "type" : "text" },
         "field_type" : { "type" : "integer", "entity_type" : "taxonomy_term" },
-        "nid" : { "type" : "integer" },
         "search_api_language" : { "type" : "string" },
-        "title" : { "type" : "string" }
+        "status" : { "type" : "integer" },
+        "title" : { "type" : "string" },
+        "type" : { "type" : "string" }
       },
       "data_alter_callbacks" : {
         "search_api_alter_bundle_filter" : {
-          "status" : 1,
+          "status" : 0,
           "weight" : "-10",
-          "settings" : { "default" : "0", "bundles" : { "carte" : "carte" } }
+          "settings" : { "default" : "1", "bundles" : [] }
         },
         "search_api_alter_node_access" : { "status" : 0, "weight" : "0", "settings" : [] },
         "search_api_alter_node_status" : { "status" : 0, "weight" : "0", "settings" : [] },
         "search_api_alter_language_control" : {
-          "status" : 0,
+          "status" : 1,
           "weight" : "0",
-          "settings" : { "lang_field" : "", "languages" : [] }
+          "settings" : { "lang_field" : "language", "languages" : [] }
         },
         "search_api_alter_add_viewed_entity" : { "status" : 0, "weight" : "0", "settings" : { "mode" : "full" } },
         "search_api_alter_add_url" : { "status" : 0, "weight" : "0", "settings" : [] },
@@ -83,68 +72,28 @@ function hs_features_search_default_search_api_index() {
         "search_api_alter_add_hierarchy" : { "status" : 0, "weight" : "0", "settings" : { "fields" : [] } }
       },
       "processors" : {
-        "search_api_case_ignore" : {
-          "status" : 1,
-          "weight" : "0",
-          "settings" : { "fields" : {
-              "field_artist" : true,
-              "field_flavor" : true,
-              "field_howtoget" : true,
-              "field_howtogetgold" : true,
-              "field_id" : true,
-              "field_inplaytext" : true,
-              "field_text" : true
-            }
-          }
-        },
+        "search_api_case_ignore" : { "status" : 1, "weight" : "0", "settings" : { "fields" : [] } },
         "search_api_html_filter" : {
-          "status" : 1,
+          "status" : 0,
           "weight" : "10",
           "settings" : {
-            "fields" : {
-              "field_artist" : true,
-              "field_flavor" : true,
-              "field_howtoget" : true,
-              "field_howtogetgold" : true,
-              "field_id" : true,
-              "field_inplaytext" : true,
-              "field_text" : true
-            },
+            "fields" : [],
             "title" : 0,
             "alt" : 1,
             "tags" : "h1 = 5\\r\\nh2 = 3\\r\\nh3 = 2\\r\\nstrong = 2\\r\\nb = 2\\r\\nem = 1.5\\r\\nu = 1.5"
           }
         },
+        "search_api_transliteration" : { "status" : 1, "weight" : "15", "settings" : { "fields" : [] } },
         "search_api_tokenizer" : {
-          "status" : 1,
+          "status" : 0,
           "weight" : "20",
-          "settings" : {
-            "fields" : {
-              "field_artist" : true,
-              "field_flavor" : true,
-              "field_howtoget" : true,
-              "field_howtogetgold" : true,
-              "field_id" : true,
-              "field_inplaytext" : true,
-              "field_text" : true
-            },
-            "spaces" : "[^[:alnum:]]",
-            "ignorable" : "[\\u0027]"
-          }
+          "settings" : { "fields" : [], "spaces" : "[^[:alnum:]]", "ignorable" : "[\\u0027]" }
         },
         "search_api_stopwords" : {
           "status" : 0,
           "weight" : "30",
           "settings" : {
-            "fields" : {
-              "field_artist" : true,
-              "field_flavor" : true,
-              "field_howtoget" : true,
-              "field_howtogetgold" : true,
-              "field_id" : true,
-              "field_inplaytext" : true,
-              "field_text" : true
-            },
+            "fields" : [],
             "file" : "",
             "stopwords" : "but\\r\\ndid\\r\\nthe this that those\\r\\netc"
           }
@@ -164,7 +113,8 @@ function hs_features_search_default_search_api_index() {
       }
     },
     "enabled" : "1",
-    "read_only" : "0"
+    "read_only" : "0",
+    "rdf_mapping" : []
   }');
   return $items;
 }
@@ -174,163 +124,99 @@ function hs_features_search_default_search_api_index() {
  */
 function hs_features_search_default_search_api_server() {
   $items = array();
-  $items['serveur_hearthstone'] = entity_import('search_api_server', '{
-    "name" : "Serveur Hearthstone",
-    "machine_name" : "serveur_hearthstone",
+  $items['hearthstone'] = entity_import('search_api_server', '{
+    "name" : "Hearthstone server",
+    "machine_name" : "hearthstone",
     "description" : "",
     "class" : "search_api_db_service",
     "options" : {
       "database" : "default:default",
       "min_chars" : "1",
-      "partial_matches" : 0,
-      "indexes" : { "index_hearthstone" : {
-          "nid" : {
-            "table" : "search_api_db_index_hearthstone",
-            "column" : "nid",
-            "type" : "integer",
-            "boost" : "1.0"
-          },
+      "partial_matches" : 1,
+      "indexes" : { "hearthstone" : {
           "title" : {
-            "table" : "search_api_db_index_hearthstone",
+            "table" : "search_api_db_hearthstone",
             "column" : "title",
             "type" : "string",
             "boost" : "1.0"
           },
-          "field_artist" : {
-            "table" : "search_api_db_index_hearthstone_text",
-            "type" : "text",
-            "boost" : "1.0"
-          },
-          "field_attack" : {
-            "table" : "search_api_db_index_hearthstone",
-            "column" : "field_attack",
+          "field_type" : {
+            "table" : "search_api_db_hearthstone",
+            "column" : "field_type",
             "type" : "integer",
             "boost" : "1.0"
           },
+          "field_rarity" : {
+            "table" : "search_api_db_hearthstone",
+            "column" : "field_rarity",
+            "type" : "integer",
+            "boost" : "1.0"
+          },
+          "field_faction" : {
+            "table" : "search_api_db_hearthstone",
+            "column" : "field_faction",
+            "type" : "integer",
+            "boost" : "1.0"
+          },
+          "field_race" : {
+            "table" : "search_api_db_hearthstone",
+            "column" : "field_race",
+            "type" : "integer",
+            "boost" : "1.0"
+          },
+          "field_playerclass" : {
+            "table" : "search_api_db_hearthstone",
+            "column" : "field_playerclass",
+            "type" : "integer",
+            "boost" : "1.0"
+          },
+          "field_mechanics" : {
+            "table" : "search_api_db_hearthstone_field_mechanics",
+            "column" : "value",
+            "type" : "list\\u003Cinteger\\u003E",
+            "boost" : "1.0"
+          },
+          "field_feed" : {
+            "table" : "search_api_db_hearthstone",
+            "column" : "field_feed",
+            "type" : "integer",
+            "boost" : "1.0"
+          },
+          "search_api_language" : {
+            "table" : "search_api_db_hearthstone",
+            "column" : "search_api_language",
+            "type" : "string",
+            "boost" : "1.0"
+          },
           "field_collectible" : {
-            "table" : "search_api_db_index_hearthstone",
+            "table" : "search_api_db_hearthstone",
             "column" : "field_collectible",
             "type" : "boolean",
             "boost" : "1.0"
           },
           "field_cost" : {
-            "table" : "search_api_db_index_hearthstone",
+            "table" : "search_api_db_hearthstone",
             "column" : "field_cost",
             "type" : "integer",
             "boost" : "1.0"
           },
-          "field_durability" : {
-            "table" : "search_api_db_index_hearthstone",
-            "column" : "field_durability",
+          "status" : {
+            "table" : "search_api_db_hearthstone",
+            "column" : "status",
             "type" : "integer",
             "boost" : "1.0"
           },
-          "field_elite" : {
-            "table" : "search_api_db_index_hearthstone",
-            "column" : "field_elite",
-            "type" : "boolean",
-            "boost" : "1.0"
-          },
-          "field_faction" : {
-            "table" : "search_api_db_index_hearthstone",
-            "column" : "field_faction",
-            "type" : "integer",
-            "boost" : "1.0"
-          },
-          "field_flavor" : {
-            "table" : "search_api_db_index_hearthstone_text",
-            "type" : "text",
-            "boost" : "1.0"
-          },
-          "field_health" : {
-            "table" : "search_api_db_index_hearthstone",
-            "column" : "field_health",
-            "type" : "integer",
-            "boost" : "1.0"
-          },
-          "field_howtoget" : {
-            "table" : "search_api_db_index_hearthstone_text",
-            "type" : "text",
-            "boost" : "1.0"
-          },
-          "field_howtogetgold" : {
-            "table" : "search_api_db_index_hearthstone_text",
-            "type" : "text",
-            "boost" : "1.0"
-          },
-          "field_id" : {
-            "table" : "search_api_db_index_hearthstone_text",
-            "type" : "text",
-            "boost" : "1.0"
-          },
-          "field_inplaytext" : {
-            "table" : "search_api_db_index_hearthstone_text",
-            "type" : "text",
-            "boost" : "1.0"
-          },
-          "field_mechanics" : {
-            "table" : "search_api_db_index_hearthstone_field_mechanics",
-            "column" : "value",
-            "type" : "list\\u003Cinteger\\u003E",
-            "boost" : "1.0"
-          },
-          "field_playerclass" : {
-            "table" : "search_api_db_index_hearthstone",
-            "column" : "field_playerclass",
-            "type" : "integer",
-            "boost" : "1.0"
-          },
-          "field_race" : {
-            "table" : "search_api_db_index_hearthstone",
-            "column" : "field_race",
-            "type" : "integer",
-            "boost" : "1.0"
-          },
-          "field_rarity" : {
-            "table" : "search_api_db_index_hearthstone",
-            "column" : "field_rarity",
-            "type" : "integer",
-            "boost" : "1.0"
-          },
-          "field_set" : {
-            "table" : "search_api_db_index_hearthstone",
-            "column" : "field_set",
-            "type" : "integer",
-            "boost" : "1.0"
-          },
-          "field_text" : {
-            "table" : "search_api_db_index_hearthstone_text",
-            "type" : "text",
-            "boost" : "1.0"
-          },
-          "field_type" : {
-            "table" : "search_api_db_index_hearthstone",
-            "column" : "field_type",
-            "type" : "integer",
-            "boost" : "1.0"
-          },
-          "search_api_language" : {
-            "table" : "search_api_db_index_hearthstone",
-            "column" : "search_api_language",
+          "type" : {
+            "table" : "search_api_db_hearthstone",
+            "column" : "type",
             "type" : "string",
-            "boost" : "1.0"
-          },
-          "field_picture:file" : {
-            "table" : "search_api_db_index_hearthstone",
-            "column" : "field_picture_file",
-            "type" : "integer",
-            "boost" : "1.0"
-          },
-          "field_picturegold:file" : {
-            "table" : "search_api_db_index_hearthstone",
-            "column" : "field_picturegold_file",
-            "type" : "integer",
             "boost" : "1.0"
           }
         }
       }
     },
-    "enabled" : "1"
+    "enabled" : "1",
+    "rdf_mapping" : []
   }');
   return $items;
 }

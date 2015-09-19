@@ -33,7 +33,7 @@ function hs_features_model_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_artist',
-    'label' => 'artist',
+    'label' => 'Artist',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -79,7 +79,7 @@ function hs_features_model_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_attack',
-    'label' => 'attack',
+    'label' => 'Attack',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -103,7 +103,7 @@ function hs_features_model_field_default_field_instances() {
     'bundle' => 'card',
     'default_value' => array(
       0 => array(
-        'value' => 0,
+        'value' => 1,
       ),
     ),
     'deleted' => 0,
@@ -125,7 +125,7 @@ function hs_features_model_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_collectible',
-    'label' => 'collectible',
+    'label' => 'Collectible?',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -170,7 +170,7 @@ function hs_features_model_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_cost',
-    'label' => 'cost',
+    'label' => 'Cost',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -217,7 +217,7 @@ function hs_features_model_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_durability',
-    'label' => 'durability',
+    'label' => 'Durability',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -263,7 +263,7 @@ function hs_features_model_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_elite',
-    'label' => 'elite',
+    'label' => 'Elite?',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -388,7 +388,7 @@ function hs_features_model_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_flavor',
-    'label' => 'flavor',
+    'label' => 'Flavor',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -434,7 +434,7 @@ function hs_features_model_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_health',
-    'label' => 'health',
+    'label' => 'Health',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -476,7 +476,7 @@ function hs_features_model_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_howtoget',
-    'label' => 'howToGet',
+    'label' => 'How to get?',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -517,7 +517,7 @@ function hs_features_model_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_howtogetgold',
-    'label' => 'howToGetGold',
+    'label' => 'How to get (gold)?',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -558,7 +558,7 @@ function hs_features_model_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_id',
-    'label' => 'id',
+    'label' => 'ID',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -599,7 +599,7 @@ function hs_features_model_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_inplaytext',
-    'label' => 'inPlayText',
+    'label' => 'In-play text',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -661,7 +661,7 @@ function hs_features_model_field_default_field_instances() {
         'path' => '',
         'size' => 60,
       ),
-      'type' => 'entityreference_autocomplete',
+      'type' => 'entityreference_autocomplete_tags',
       'weight' => 9,
     ),
   );
@@ -691,13 +691,13 @@ function hs_features_model_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_picture',
-    'label' => 'picture',
+    'label' => 'Picture',
     'required' => 0,
     'settings' => array(
       'alt_field' => 1,
       'default_image' => 0,
       'entity_translation_sync' => FALSE,
-      'file_directory' => '',
+      'file_directory' => 'cards/original',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
       'max_resolution' => '',
@@ -742,13 +742,13 @@ function hs_features_model_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_picturegold',
-    'label' => 'pictureGold',
+    'label' => 'Picture (gold)',
     'required' => 0,
     'settings' => array(
       'alt_field' => 1,
       'default_image' => 0,
       'entity_translation_sync' => FALSE,
-      'file_directory' => '',
+      'file_directory' => 'cards/animated',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
       'max_resolution' => '',
@@ -926,7 +926,7 @@ function hs_features_model_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_text',
-    'label' => 'text',
+    'label' => 'Text',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -986,6 +986,107 @@ function hs_features_model_field_default_field_instances() {
       'settings' => array(),
       'type' => 'options_select',
       'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'node-card_feed-field_card_code'
+  $field_instances['node-card_feed-field_card_code'] = array(
+    'bundle' => 'card_feed',
+    'default_value' => array(
+      0 => array(
+        'value' => 'enus',
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 3,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_card_code',
+    'label' => 'Card code',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'node-card_feed-field_last_import'
+  $field_instances['node-card_feed-field_last_import'] = array(
+    'bundle' => 'card_feed',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'date',
+        'settings' => array(
+          'format_type' => 'long',
+          'fromto' => 'both',
+          'multiple_from' => '',
+          'multiple_number' => '',
+          'multiple_to' => '',
+          'show_remaining_days' => FALSE,
+        ),
+        'type' => 'date_default',
+        'weight' => 4,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_last_import',
+    'label' => 'Last import',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'blank',
+      'default_value2' => 'same',
+      'default_value_code' => '',
+      'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'site-wide',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'no_fieldset' => 1,
+        'text_parts' => array(),
+        'year_range' => '-10:+0',
+      ),
+      'type' => 'date_popup',
+      'weight' => 3,
     ),
   );
 
@@ -1073,18 +1174,258 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'taxonomy_term-faction-name_field'
+  $field_instances['taxonomy_term-faction-name_field'] = array(
+    'bundle' => 'faction',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'name_field',
+    'label' => 'Name',
+    'required' => TRUE,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => FALSE,
+        'page' => FALSE,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -5,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-mechanics-name_field'
+  $field_instances['taxonomy_term-mechanics-name_field'] = array(
+    'bundle' => 'mechanics',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'name_field',
+    'label' => 'Name',
+    'required' => TRUE,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => FALSE,
+        'page' => FALSE,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -5,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-playerclass-name_field'
+  $field_instances['taxonomy_term-playerclass-name_field'] = array(
+    'bundle' => 'playerclass',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'name_field',
+    'label' => 'Name',
+    'required' => TRUE,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => FALSE,
+        'page' => FALSE,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -5,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-race-name_field'
+  $field_instances['taxonomy_term-race-name_field'] = array(
+    'bundle' => 'race',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'name_field',
+    'label' => 'Name',
+    'required' => TRUE,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => FALSE,
+        'page' => FALSE,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -5,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-rarity-name_field'
+  $field_instances['taxonomy_term-rarity-name_field'] = array(
+    'bundle' => 'rarity',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'name_field',
+    'label' => 'Name',
+    'required' => TRUE,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => FALSE,
+        'page' => FALSE,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -5,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-type-name_field'
+  $field_instances['taxonomy_term-type-name_field'] = array(
+    'bundle' => 'type',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'name_field',
+    'label' => 'Name',
+    'required' => TRUE,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => FALSE,
+        'page' => FALSE,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -5,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
+  t('Artist');
+  t('Attack');
+  t('Card code');
+  t('Collectible?');
+  t('Cost');
+  t('Durability');
+  t('Elite?');
   t('Faction');
   t('Feed');
+  t('Flavor');
   t('Gold version of the card.');
+  t('Health');
+  t('How to get (gold)?');
   t('How to get the gold version of this card. Only present if it\'s gotten via a method other than opening a booster pack.');
   t('How to get this card. Only present if it\'s gotten via a method other than opening a booster pack.');
+  t('How to get?');
+  t('ID');
   t('If this card can be acquired by the player, this is true. false otherwise.');
+  t('In-play text');
+  t('Last import');
   t('Mechanics');
+  t('Name');
+  t('Picture');
+  t('Picture (gold)');
   t('Player class');
   t('Race');
   t('Rarity');
+  t('Text');
   t('The Hearthstone ID of the card.');
   t('The artist of the card.');
   t('The attack of the card. Used for both Minions and Weapons.');
@@ -1099,21 +1440,6 @@ function hs_features_model_field_default_field_instances() {
   t('Type');
   t('URL');
   t('Whether or not this card is elite.');
-  t('artist');
-  t('attack');
-  t('collectible');
-  t('cost');
-  t('durability');
-  t('elite');
-  t('flavor');
-  t('health');
-  t('howToGet');
-  t('howToGetGold');
-  t('id');
-  t('inPlayText');
-  t('picture');
-  t('pictureGold');
-  t('text');
 
   return $field_instances;
 }

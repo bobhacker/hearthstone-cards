@@ -14,11 +14,51 @@ function hsc_action_info() {
       'type' => 'node',
       'label' => t('Import from this feed'),
       'behavior' => 'import_from_feed',
-      'configurable' => FALSE,
+      'configurable' => TRUE,
       'vbo_configurable' => FALSE,
       'triggers' => array('any'),
     ),
   );
+}
+
+
+/**
+ * Implements hook_action_form().
+ */
+function  hsc_import_from_feed_form($settings, &$form_state) {
+	global $language;
+	
+	$form = array();
+	$form['language'] = array(
+		'#type' => 'select',
+	  '#title' => t('Choose import language:'),
+	  '#options' => array(
+	    'en' => t('English'), 
+	  	'fr' => t('French'), 
+	  	'it' => t('Italian')
+	  ),
+		'#default_value' => $language->language,
+	);
+	$form['collectible'] = array(
+		'#type' => 'radios',
+		'#title' => t('Collectible only?'),
+		'#options' => array(t('No'), t('Yes')),
+		'#default_value' => 1,
+	);
+	return $form;
+}
+
+
+/**
+ * Implements hook_action_form_submit().
+ */
+function hsc_import_from_feed_submit($form, $form_state) {
+	$return = array();
+	$return['hsc_import_settings'] = array(
+	  'language' => $form_state['values']['language'], 
+	  'collectible' => $form_state['values']['collectible']
+	);
+	return $return; // Note, return value here must be an array.
 }
 
 
@@ -28,12 +68,15 @@ function hsc_action_info() {
 function hsc_import_from_feed(&$node, $context) {
   $operations = array();
   
-  $feed_url = field_get_items('node', $node, 'field_url', 'en'); // $_SESSION['lang_import']
+  $language = $context['hsc_import_settings']['language'];
+  
+  $feed_url = field_get_items('node', $node, 'field_url', $language);
   if ($feed_url !== FALSE) {
     $data_json = file_get_contents($feed_url[0]['value']);
     $data = json_decode($data_json);
     foreach ($data as $card) {
-      $operations[] = array('hs_import_batch_process', array($card, $node));
+    	if (!($context['hsc_import_settings']['collectible']) || (($context['hsc_import_settings']['collectible']) && ($card->collectible)))
+      	$operations[] = array('hs_import_batch_process', array($card, $node, $language));
     }
   }
   
@@ -44,33 +87,40 @@ function hsc_import_from_feed(&$node, $context) {
       'finished' => 'hs_import_batch_finished',
     );
     batch_set($batch);
+    // Let's assume import worked well...
+    $node->field_last_import[LANGUAGE_NONE][0]['value'] = REQUEST_TIME;
+    node_save($node);
   }
 }
 
 
-function hs_import_batch_process($card, $feed, &$context) {
+/**
+ * Helper function.
+ */
+function hs_import_batch_process($card, $feed, $language, &$context) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node');
   $query->entityCondition('bundle', 'card');
+  $query->propertyCondition('language', $language, '=');
   $query->fieldCondition('field_id', 'value', $card->id, '=');
   $query->range(0, 1);
   $result = $query->execute();
   $card_name = empty($card->name) ? $card->id : $card->name;
-  if (isset($result['node'])) {
-    $context['message'] = t('Updating %card_name [from %feed_name feed].', array('%card_name' => $card_name, '%feed_name' => $feed->title));
-  }
-  else {
-    $context['message'] = t('Importing %card_name [from %feed_name feed].', array('%card_name' => $card_name, '%feed_name' => $feed->title));
-  }
-  hs_import_batch_process_import_card($card, $feed);
+  $message = isset($result['node']) ? 'Updating %card_name [%feed_name / %language].' : 'Importing %card_name [%feed_name / %language].';
+  $context['message'] = t($message, array('%card_name' => $card_name, '%feed_name' => $feed->title, '%language' => strtoupper($language)));
+  hs_import_batch_process_import_card($card, $feed, $language);
   $context['results'][] = check_plain($card_name) . ' [' . check_plain($card->id) . '].';
 }
 
 
-function hs_import_batch_process_import_card($card, $feed) {
+/**
+ * Helper function.
+ */
+function hs_import_batch_process_import_card($card, $feed, $language) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node');
   $query->entityCondition('bundle', 'card');
+  $query->propertyCondition('language', $language, '=');
   $query->fieldCondition('field_id', 'value', $card->id, '=');
   $query->range(0, 1);
   $results = $query->execute();
@@ -81,22 +131,44 @@ function hs_import_batch_process_import_card($card, $feed) {
   else {
     $node = new stdClass();
     $node->type = 'card';
-    $node->language = 'en'; // $_SESSION['lang_import']
+    $node->language = $language;
     $node->is_new = TRUE;
     node_object_prepare($node);
+    
+    // Seek for translations
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node');
+    $query->entityCondition('bundle', 'card');
+    $query->propertyCondition('language', $language, '!=');
+    $query->fieldCondition('field_id', 'value', $card->id, '=');
+    $query->propertyOrderBy('created', 'ASC');
+    $query->range(0, 1);
+    $results = $query->execute();
+    if (isset($results['node'])) {
+    	$result = array_shift($results['node']);
+    	$source = node_load($result->nid);
+    	if ($source->tnid) {
+    		$node->tnid = $source->tnid;
+    	}
+    	else {
+    		$node->tnid = $source->nid;
+    		$source->tnid = $source->nid;
+    		node_save($source);
+    	}
+    }
   }
 
-  // Association du flux source
+  // Associate source feed
   $node->field_feed[LANGUAGE_NONE][0]['target_id'] = $feed->nid;
   
-  // Autres valeurs
+  // Other fields
   foreach ($card as $property => $value) {
     switch ($property) {
-      // Titre
+      // Title
       case 'name':
         $node->title = empty($value) ? $card->id : $value;
         break;
-      // Valeurs numériques & booléennes
+      // Numeric & boolean values
       case 'cost':
       case 'attack':
       case 'health':
@@ -122,12 +194,12 @@ function hs_import_batch_process_import_card($card, $feed) {
           $term = new stdClass();
           $term->name = $value;
           $term->vid = $vocab->vid;
-          $term->language = 'en'; // $_SESSION['lang_import']
+          $term->language = 'en';
           taxonomy_term_save($term);
         }
         $node->{'field_' . $property}[LANGUAGE_NONE][0]['target_id'] = $term->tid;
         break;
-      // Taxonomies multiples
+      // Multiple taxonomies
       case 'mechanics':
         $property = strtolower($property);
         $cpt = 0;
@@ -142,13 +214,13 @@ function hs_import_batch_process_import_card($card, $feed) {
             $term = new stdClass();
             $term->name = $val;
             $term->vid = $vocab->vid;
-            $term->language = 'en'; // $_SESSION['lang_import']
+            $term->language = 'en';
             taxonomy_term_save($term);
           }
           $node->{'field_' . $property}[LANGUAGE_NONE][$cpt++]['target_id'] = $term->tid;
         }
         break;
-      // Défaut : valeurs textuelles
+      // Default: text values
       default:
         $property = strtolower($property);
         $node->{'field_' . $property}[LANGUAGE_NONE][0]['value'] = $value;
@@ -156,26 +228,32 @@ function hs_import_batch_process_import_card($card, $feed) {
     }
   }
 
-  // Image carte
-  $url = 'http://wow.zamimg.com/images/hearthstone/cards/enus/original/' . $card->id . '.png';
-  $file_headers = @get_headers($url);
-  if (($file_headers[0] == 'HTTP/1.0 200 OK') && ($fic_picture = system_retrieve_file($url, NULL, TRUE, FILE_EXISTS_REPLACE))) {
-    $node->field_picture[LANGUAGE_NONE][0] = (array) $fic_picture;
+  $code_carte = field_get_items('node', $feed, 'field_card_code', $language);
+  if ($code_carte !== FALSE) {
+	  // Card picture
+	  $url = 'http://wow.zamimg.com/images/hearthstone/cards/' . $code_carte[0]['value'] . '/original/' . $card->id . '.png';
+	  $file_headers = @get_headers($url);
+	  if (($file_headers[0] == 'HTTP/1.0 200 OK') && ($fic_picture = system_retrieve_file($url, 'public://cards/original', TRUE, FILE_EXISTS_RENAME))) {
+	    $node->field_picture[LANGUAGE_NONE][0] = (array) $fic_picture;
+	  }
+	
+	  // Golden card picture
+	  $url = 'http://wow.zamimg.com/images/hearthstone/cards/' . $code_carte[0]['value'] . '/animated/' . $card->id . '_premium.gif';
+	  $file_headers = @get_headers($url);
+	  if (($file_headers[0] == 'HTTP/1.0 200 OK') && ($fic_picturegold = system_retrieve_file($url, 'public://cards/animated', TRUE, FILE_EXISTS_RENAME))) {
+	    $node->field_picturegold[LANGUAGE_NONE][0] = (array) $fic_picturegold;
+	  }
   }
-
-  // Image carte dorée
-  $url = 'http://wow.zamimg.com/images/hearthstone/cards/enus/animated/' . $card->id . '_premium.gif';
-  $file_headers = @get_headers($url);
-  if (($file_headers[0] == 'HTTP/1.0 200 OK') && ($fic_picturegold = system_retrieve_file($url, NULL, TRUE, FILE_EXISTS_REPLACE))) {
-    $node->field_picturegold[LANGUAGE_NONE][0] = (array) $fic_picturegold;
-  }
-
+  
   // Sauvegarde
   $node = node_submit($node);
   node_save($node);
 }
 
 
+/**
+ * Helper function.
+ */
 function hs_import_batch_finished($success, $results, $operations) {
   // The 'success' parameter means no fatal PHP errors were detected. All
   // other error management should be handled using 'results'.
