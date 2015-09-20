@@ -58,6 +58,9 @@ function hsc_import_from_feed_submit($form, $form_state) {
 }
 
 
+/**
+ * Implements hook_form_alter().
+ */
 function hsc_form_alter(&$form, &$form_state, $form_id) {
 	if ($form_id == 'card_feed_node_form') {
 		
@@ -124,6 +127,9 @@ function hsc_form_alter(&$form, &$form_state, $form_id) {
 }
 
 
+/**
+ * Ajax callback.
+ */
 function _hsc_import_ajax_card_code_callback($form, $form_state) {
 	return $form['card_code_preview'];
 }
