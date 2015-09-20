@@ -97,7 +97,8 @@ function hs_features_model_views_default_views() {
   $handler->display->display_options['path'] = 'import-cards';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Import cards';
-  $handler->display->display_options['menu']['weight'] = '-1000';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['name'] = 'menu-hearthstone';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
   $translatables['import'] = array(
@@ -193,7 +194,8 @@ function hs_features_model_views_default_views() {
   $handler->display->display_options['path'] = 'manage-feeds';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Manage feeds';
-  $handler->display->display_options['menu']['weight'] = '-998';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['name'] = 'menu-hearthstone';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
   $translatables['manage_feeds'] = array(
