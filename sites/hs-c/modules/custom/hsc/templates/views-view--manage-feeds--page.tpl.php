@@ -28,11 +28,6 @@
  */
 ?>
 <div class="<?php print $classes; ?>">
-  <ul class="action-links add-card-feed">
-    <li>
-      <?php print l(t('Add card feed'), 'node/add/card-feed'); ?>
-    </li>
-  </ul>
   <?php print render($title_prefix); ?>
   <?php if ($title): ?>
     <?php print $title; ?>
@@ -56,6 +51,12 @@
     </div>
   <?php endif; ?>
 
+  <ul class="action-links add-card-feed">
+    <li>
+      <?php print l(t('Add card feed'), 'node/add/card-feed'); ?>
+    </li>
+  </ul>
+  
   <?php if ($rows): ?>
     <div class="view-content">
       <?php print $rows; ?>
