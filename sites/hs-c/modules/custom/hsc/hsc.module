@@ -23,6 +23,83 @@ function hsc_action_info() {
 
 
 /**
+ * Implements hook_form_alter().
+ */
+function hsc_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'card_feed_node_form') {
+
+    //$form['#cache'] = FALSE; // IMPORTANT!! to avoid the "Invalid form POST data" error.
+
+    // Get form language.
+    $lang = $form['field_card_code']['#language'];
+
+    // Add ajax on card code field.
+    $form['field_card_code'][$lang][0]['value']['#ajax'] = array(
+      'callback' => '_hsc_import_ajax_card_code_callback',
+      'wrapper' => 'card-code-preview',
+      'effect' => 'fade',
+    );
+
+    // Get default card code value, if any.
+    if (!empty($form_state['values']['field_card_code'][$lang][0]['value'])) {
+      $default_value = $form_state['values']['field_card_code'][$lang][0]['value'];
+    }
+    elseif (!empty($form['field_card_code'][$lang][0]['value']['#default_value'])) {
+      $default_value = $form['field_card_code'][$lang][0]['value']['#default_value'];
+    }
+    else {
+      $default_value = '';
+    }
+
+    // Create preview.
+    $form['card_code_preview'] = array(
+      '#type' => 'container',
+      '#weight' => $form['field_card_code']['#weight'] + 1,
+      '#access' => TRUE,
+      '#prefix' => '<div id="card-code-preview">',
+      '#suffix' => '</div>',
+    );
+    if (!empty($default_value)) {
+      $url = 'http://wow.zamimg.com/images/hearthstone/cards/' . $default_value . '/original/EX1_116.png';
+      $form['card_code_preview'][$lang][0]['value'] = array(
+        '#type' => 'item',
+        '#theme' => 'link',
+        '#text' => t('Preview picture'),
+        '#path' => $url,
+        '#options' => array(
+          'attributes' => array('target' => '_blank'),
+          'html' => FALSE,
+        ),
+
+      );
+    }
+    else {
+      $form['card_code_preview'][$lang][0]['value'] = array(
+        '#type' => 'item',
+        '#markup' => '',
+      );
+    }
+
+    // Update fields weight.
+    foreach (element_children($form) as $field_name) {
+      $element =& $form[$field_name];
+      if (($field_name != 'field_card_code') && ($field_name != 'card_code_preview') && isset($element['#weight']) && ($element['#weight'] >= $form['card_code_preview']['#weight'])) {
+        $element['#weight'] += 1;
+      }
+    }
+  }
+}
+
+
+/**
+ * Ajax callback.
+ */
+function _hsc_import_ajax_card_code_callback($form, $form_state) {
+  return $form['card_code_preview'];
+}
+
+
+/**
  * Implements hook_action_form().
  */
 function  hsc_import_from_feed_form($settings, &$form_state) {
@@ -55,83 +132,6 @@ function hsc_import_from_feed_submit($form, $form_state) {
 	  'collectible' => $form_state['values']['collectible']
 	);
 	return $return; // Note, return value here must be an array.
-}
-
-
-/**
- * Implements hook_form_alter().
- */
-function hsc_form_alter(&$form, &$form_state, $form_id) {
-	if ($form_id == 'card_feed_node_form') {
-		
-		//$form['#cache'] = FALSE; // IMPORTANT!! to avoid the "Invalid form POST data" error.
-		
-		// Get form language.
-		$lang = $form['field_card_code']['#language'];
-		
-		// Add ajax on card code field.
-		$form['field_card_code'][$lang][0]['value']['#ajax'] = array(
-			'callback' => '_hsc_import_ajax_card_code_callback',
-			'wrapper' => 'card-code-preview',
-			'effect' => 'fade',
-		);
-
-		// Get default card code value, if any.
-		if (!empty($form_state['values']['field_card_code'][$lang][0]['value'])) {
-			$default_value = $form_state['values']['field_card_code'][$lang][0]['value'];
-		}
-		elseif (!empty($form['field_card_code'][$lang][0]['value']['#default_value'])) {
-			$default_value = $form['field_card_code'][$lang][0]['value']['#default_value'];
-		}
-		else {
-			$default_value = '';
-		}
-		
-		// Create preview.
-		$form['card_code_preview'] = array(
-			'#type' => 'container',
-			'#weight' => $form['field_card_code']['#weight'] + 1,
-			'#access' => TRUE,
-			'#prefix' => '<div id="card-code-preview">',
-			'#suffix' => '</div>',
-		);
-		if (!empty($default_value)) {
-			$url = 'http://wow.zamimg.com/images/hearthstone/cards/' . $default_value . '/original/EX1_116.png';
-			$form['card_code_preview'][$lang][0]['value'] = array(
-				'#type' => 'item',
-				'#theme' => 'link',
-				'#text' => t('Preview picture'),
-				'#path' => $url,
-				'#options' => array(
-					'attributes' => array('target' => '_blank'),
-					'html' => FALSE,
-				),
-				
-			);
-		}
-		else {
-			$form['card_code_preview'][$lang][0]['value'] = array(
-				'#type' => 'item',
-				'#markup' => '',
-			);
-		}
-		
-		// Update fields weight.
-		foreach (element_children($form) as $field_name) {
-			$element =& $form[$field_name];
-			if (($field_name != 'field_card_code') && ($field_name != 'card_code_preview') && isset($element['#weight']) && ($element['#weight'] >= $form['card_code_preview']['#weight'])) {
-				$element['#weight'] += 1;
-			}
-		}
-	}
-}
-
-
-/**
- * Ajax callback.
- */
-function _hsc_import_ajax_card_code_callback($form, $form_state) {
-	return $form['card_code_preview'];
 }
 
 
@@ -304,7 +304,7 @@ function hsc_import_batch_process_import_card($card, $feed, $language) {
   $code_carte = field_get_items('node', $feed, 'field_card_code', $language);
   if ($code_carte !== FALSE) {
 	  // Card picture
-	  $directory = 'public://cards/original';
+	  $directory = "public://cards/$language/original";
   	if (file_prepare_directory($directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS)) {
 		  $url = 'http://wow.zamimg.com/images/hearthstone/cards/' . $code_carte[0]['value'] . '/original/' . $card->id . '.png';
 		  $file_headers = @get_headers($url);
@@ -314,7 +314,7 @@ function hsc_import_batch_process_import_card($card, $feed, $language) {
   	}
 	
 	  // Golden card picture
-	  $directory = 'public://cards/animated';
+	  $directory = "public://cards/$language/animated";
 	  if (file_prepare_directory($directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS)) {
 		  $url = 'http://wow.zamimg.com/images/hearthstone/cards/' . $code_carte[0]['value'] . '/animated/' . $card->id . '_premium.gif';
 		  $file_headers = @get_headers($url);
