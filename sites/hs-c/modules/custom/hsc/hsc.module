@@ -357,3 +357,15 @@ function hsc_import_batch_finished($success, $results, $operations) {
   }
   drupal_set_message($message);
 }
+
+
+/**
+ * Implements hook_views_api().
+ */
+function hsc_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'hsc'),
+    'template path' => drupal_get_path('module', 'hsc') . '/templates',
+  );
+}
