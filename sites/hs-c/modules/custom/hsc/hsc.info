@@ -5,3 +5,4 @@ package = HSC
 version = 7.x-1.0
 dependencies[] = hs_features_model
 dependencies[] = hs_features_search
+dependencies[] = hs_features_config
