@@ -106,12 +106,12 @@ function  hsc_import_from_feed_form($settings, &$form_state) {
 	global $language;
 	
 	$form = array();
-	$options = array('all' => t('All')) + locale_language_list();
 	$form['language'] = array(
-		'#type' => 'select',
+	  '#type' => 'checkboxes',
 	  '#title' => t('Choose import language:'),
-	  '#options' => $options,
-		'#default_value' => $language->language,
+	  '#options' => locale_language_list(),
+	  '#required' => TRUE,
+		'#default_value' => array($language->language),
 	);
 	$form['collectible'] = array(
 		'#type' => 'radios',
@@ -130,14 +130,11 @@ function hsc_import_from_feed_submit($form, $form_state) {
 	$return = array();
 	
 	$languages = array();
-	if ($form_state['values']['language'] == 'all') {
-	  foreach (locale_language_list() as $lang => $label) {
-	    $languages[] = $lang;
-	  }
-	}
-	else {
-	  $languages[] = $form_state['values']['language'];
-	}
+  foreach ($form_state['values']['language'] as $lang => $value) {
+    if (!empty($value)) {
+      $languages[] = $lang;
+    }
+  }
 	
 	$return['hsc_import_settings'] = array(
 	  'languages' => $languages, 
