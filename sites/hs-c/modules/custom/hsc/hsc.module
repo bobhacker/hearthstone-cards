@@ -13,9 +13,7 @@ function hsc_action_info() {
     'hsc_import_from_feed' => array(
       'type' => 'node',
       'label' => t('Import from this feed'),
-      'behavior' => 'import_from_feed',
       'configurable' => TRUE,
-      'vbo_configurable' => FALSE,
       'triggers' => array('any'),
     ),
   );
@@ -27,8 +25,6 @@ function hsc_action_info() {
  */
 function hsc_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'card_feed_node_form') {
-
-    //$form['#cache'] = FALSE; // IMPORTANT!! to avoid the "Invalid form POST data" error.
 
     // Get form language.
     $lang = $form['field_card_code']['#language'];
@@ -51,7 +47,7 @@ function hsc_form_alter(&$form, &$form_state, $form_id) {
       $default_value = '';
     }
 
-    // Create preview.
+    // Create preview link by language.
     $form['card_code_preview'] = array(
       '#type' => 'container',
       '#weight' => $form['field_card_code']['#weight'] + 1,
@@ -60,11 +56,12 @@ function hsc_form_alter(&$form, &$form_state, $form_id) {
       '#suffix' => '</div>',
     );
     if (!empty($default_value)) {
+    	// Example preview on Leeroy Jenkins picture.
       $url = 'http://wow.zamimg.com/images/hearthstone/cards/' . $default_value . '/original/EX1_116.png';
       $form['card_code_preview'][$lang][0]['value'] = array(
         '#type' => 'item',
         '#theme' => 'link',
-        '#text' => t('Preview picture'),
+        '#text' => t('Card picture example'),
         '#path' => $url,
         '#options' => array(
           'attributes' => array('target' => '_blank'),
@@ -109,9 +106,10 @@ function  hsc_import_from_feed_form($settings, &$form_state) {
 	$form['language'] = array(
 	  '#type' => 'checkboxes',
 	  '#title' => t('Choose import language:'),
-	  '#options' => locale_language_list(),
+	  '#options' => array('all' => '-Check/Uncheck all-') + locale_language_list(),
 	  '#required' => TRUE,
 		'#default_value' => array($language->language),
+		'#after_build' => array('_hsc_import_from_feed_form_language_after_build'),
 	);
 	$form['collectible'] = array(
 		'#type' => 'radios',
@@ -124,7 +122,26 @@ function  hsc_import_from_feed_form($settings, &$form_state) {
 
 
 /**
- * Implements hook_action_form_submit().
+ * After build.
+ */
+function _hsc_import_from_feed_form_language_after_build($element) {
+	global $language;
+	
+	foreach (element_children($element) as $key) {
+		if (in_array($key, array_keys(locale_language_list())) && ($key != $language->language)) {
+			$element[$key]['#states'] = array(
+				'checked' => array(
+					'input[value="all"]' => array('checked' => TRUE),	
+				),
+			);
+		}
+	}
+	return $element;
+}
+
+
+/**
+ * Implements hook_action_submit().
  */
 function hsc_import_from_feed_submit($form, $form_state) {
 	$return = array();
@@ -170,8 +187,6 @@ function hsc_import_from_feed(&$node, $context) {
       'finished' => 'hsc_import_batch_finished',
     );
     batch_set($batch);
-    // Let's assume import worked well...
-    $node->field_last_import[LANGUAGE_NONE][0]['value'] = REQUEST_TIME;
     node_save($node);
   }
 }

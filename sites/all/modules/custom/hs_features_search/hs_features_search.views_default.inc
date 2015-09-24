@@ -82,6 +82,16 @@ function hs_features_search_views_default_views() {
     1 => '1',
   );
   $handler->display->display_options['filters']['field_collectible']['group'] = 1;
+  /* Filter criterion: Indexed Node: Type */
+  $handler->display->display_options['filters']['field_type']['id'] = 'field_type';
+  $handler->display->display_options['filters']['field_type']['table'] = 'search_api_index_hearthstone';
+  $handler->display->display_options['filters']['field_type']['field'] = 'field_type';
+  $handler->display->display_options['filters']['field_type']['operator'] = '<>';
+  $handler->display->display_options['filters']['field_type']['value'] = array(
+    102 => '102',
+  );
+  $handler->display->display_options['filters']['field_type']['group'] = 1;
+  $handler->display->display_options['filters']['field_type']['type'] = 'select';
   /* Filter criterion: Indexed Node: Item language */
   $handler->display->display_options['filters']['search_api_language']['id'] = 'search_api_language';
   $handler->display->display_options['filters']['search_api_language']['table'] = 'search_api_index_hearthstone';

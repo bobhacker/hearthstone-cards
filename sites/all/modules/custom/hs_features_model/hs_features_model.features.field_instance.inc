@@ -1034,62 +1034,6 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card_feed-field_last_import'
-  $field_instances['node-card_feed-field_last_import'] = array(
-    'bundle' => 'card_feed',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'date',
-        'settings' => array(
-          'format_type' => 'long',
-          'fromto' => 'both',
-          'multiple_from' => '',
-          'multiple_number' => '',
-          'multiple_to' => '',
-          'show_remaining_days' => FALSE,
-        ),
-        'type' => 'date_default',
-        'weight' => 4,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_last_import',
-    'label' => 'Last import',
-    'required' => 0,
-    'settings' => array(
-      'default_value' => 'blank',
-      'default_value2' => 'same',
-      'default_value_code' => '',
-      'default_value_code2' => '',
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'date',
-      'settings' => array(
-        'increment' => 15,
-        'input_format' => 'site-wide',
-        'input_format_custom' => '',
-        'label_position' => 'above',
-        'no_fieldset' => 1,
-        'text_parts' => array(),
-        'year_range' => '-10:+0',
-      ),
-      'type' => 'date_popup',
-      'weight' => 3,
-    ),
-  );
-
   // Exported field_instance: 'node-card_feed-field_url'
   $field_instances['node-card_feed-field_url'] = array(
     'bundle' => 'card_feed',
@@ -1417,7 +1361,6 @@ function hs_features_model_field_default_field_instances() {
   t('ID');
   t('If this card can be acquired by the player, this is true. false otherwise.');
   t('In-play text');
-  t('Last import');
   t('Mechanics');
   t('Name');
   t('Picture');

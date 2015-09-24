@@ -32,18 +32,6 @@ function hs_features_model_context_default_contexts() {
           'region' => 'sidebar_first',
           'weight' => '-17',
         ),
-        'user-login' => array(
-          'module' => 'user',
-          'delta' => 'login',
-          'region' => 'sidebar_first',
-          'weight' => '17',
-        ),
-        'system-navigation' => array(
-          'module' => 'system',
-          'delta' => 'navigation',
-          'region' => 'sidebar_second',
-          'weight' => '17',
-        ),
       ),
     ),
   );

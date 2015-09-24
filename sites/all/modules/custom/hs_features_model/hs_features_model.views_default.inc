@@ -53,18 +53,6 @@ function hs_features_model_views_default_views() {
   $handler->display->display_options['fields']['title_field']['table'] = 'field_data_title_field';
   $handler->display->display_options['fields']['title_field']['field'] = 'title_field';
   $handler->display->display_options['fields']['title_field']['link_to_entity'] = 0;
-  /* Field: Content: Last import */
-  $handler->display->display_options['fields']['field_last_import']['id'] = 'field_last_import';
-  $handler->display->display_options['fields']['field_last_import']['table'] = 'field_data_field_last_import';
-  $handler->display->display_options['fields']['field_last_import']['field'] = 'field_last_import';
-  $handler->display->display_options['fields']['field_last_import']['settings'] = array(
-    'format_type' => 'short',
-    'fromto' => 'both',
-    'multiple_number' => '',
-    'multiple_from' => '',
-    'multiple_to' => '',
-    'show_remaining_days' => 0,
-  );
   /* Sort criterion: Content: Title (title_field) */
   $handler->display->display_options['sorts']['title_field_value']['id'] = 'title_field_value';
   $handler->display->display_options['sorts']['title_field_value']['table'] = 'field_data_title_field';
@@ -113,7 +101,6 @@ function hs_features_model_views_default_views() {
     t('Content'),
     t('- Choose an operation -'),
     t('Title'),
-    t('Last import'),
     t('Page'),
   );
   $export['import'] = $view;
