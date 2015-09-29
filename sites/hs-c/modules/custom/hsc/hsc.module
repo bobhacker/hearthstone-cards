@@ -148,7 +148,7 @@ function hsc_import_from_feed_submit($form, $form_state) {
 	
 	$languages = array();
   foreach ($form_state['values']['language'] as $lang => $value) {
-    if (!empty($value)) {
+    if (($lang != 'all') && !empty($value)) {
       $languages[] = $lang;
     }
   }
