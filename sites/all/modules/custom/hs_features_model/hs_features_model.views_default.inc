@@ -134,6 +134,10 @@ function hs_features_model_views_default_views() {
   $handler->display->display_options['fields']['field_url']['id'] = 'field_url';
   $handler->display->display_options['fields']['field_url']['table'] = 'field_data_field_url';
   $handler->display->display_options['fields']['field_url']['field'] = 'field_url';
+  /* Field: Content: Card code */
+  $handler->display->display_options['fields']['field_card_code']['id'] = 'field_card_code';
+  $handler->display->display_options['fields']['field_card_code']['table'] = 'field_data_field_card_code';
+  $handler->display->display_options['fields']['field_card_code']['field'] = 'field_card_code';
   /* Field: Content: Edit link */
   $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
   $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
@@ -200,6 +204,7 @@ function hs_features_model_views_default_views() {
     t('Desc'),
     t('Title'),
     t('URL'),
+    t('Card code'),
     t('Edit link'),
     t('Edit'),
     t('Delete link'),
