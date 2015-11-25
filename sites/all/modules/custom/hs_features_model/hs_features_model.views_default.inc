@@ -89,6 +89,20 @@ function hs_features_model_views_default_views() {
   $handler->display->display_options['menu']['name'] = 'menu-hearthstone';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $translatables['import'] = array(
+    t('Master'),
+    t('Import cards'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Content'),
+    t('- Choose an operation -'),
+    t('Title'),
+    t('Page'),
+  );
   $export['import'] = $view;
 
   $view = new view();
@@ -120,10 +134,6 @@ function hs_features_model_views_default_views() {
   $handler->display->display_options['fields']['field_url']['id'] = 'field_url';
   $handler->display->display_options['fields']['field_url']['table'] = 'field_data_field_url';
   $handler->display->display_options['fields']['field_url']['field'] = 'field_url';
-  /* Field: Content: Card code */
-  $handler->display->display_options['fields']['field_card_code']['id'] = 'field_card_code';
-  $handler->display->display_options['fields']['field_card_code']['table'] = 'field_data_field_card_code';
-  $handler->display->display_options['fields']['field_card_code']['field'] = 'field_card_code';
   /* Field: Content: Edit link */
   $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
   $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
@@ -179,6 +189,25 @@ function hs_features_model_views_default_views() {
   $handler->display->display_options['menu']['name'] = 'menu-hearthstone';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $translatables['manage_feeds'] = array(
+    t('Master'),
+    t('Manage feeds'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Title'),
+    t('URL'),
+    t('Edit link'),
+    t('Edit'),
+    t('Delete link'),
+    t('Delete'),
+    t('Actions'),
+    t('[edit_node] | [delete_node]'),
+    t('Page'),
+  );
   $export['manage_feeds'] = $view;
 
   return $export;
