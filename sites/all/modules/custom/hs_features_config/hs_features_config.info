@@ -24,3 +24,5 @@ features[variable][] = language_negotiation_language
 features[variable][] = language_negotiation_language_content
 features[variable][] = site_default_country
 features[variable][] = site_frontpage
+features[variable][] = theme_bartik_settings
+features[variable][] = theme_default
