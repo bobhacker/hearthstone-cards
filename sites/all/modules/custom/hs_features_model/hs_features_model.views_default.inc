@@ -151,7 +151,7 @@ function hs_features_model_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Actions';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '[edit_node] | [delete_node]';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '[edit_node]&nbsp;|&nbsp;[delete_node]';
   /* Sort criterion: Content: Title (title_field) */
   $handler->display->display_options['sorts']['title_field_value']['id'] = 'title_field_value';
   $handler->display->display_options['sorts']['title_field_value']['table'] = 'field_data_title_field';
@@ -205,7 +205,7 @@ function hs_features_model_views_default_views() {
     t('Delete link'),
     t('Delete'),
     t('Actions'),
-    t('[edit_node] | [delete_node]'),
+    t('[edit_node]&nbsp;|&nbsp;[delete_node]'),
     t('Page'),
   );
   $export['manage_feeds'] = $view;

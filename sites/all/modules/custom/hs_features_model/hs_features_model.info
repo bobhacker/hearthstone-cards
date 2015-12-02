@@ -12,6 +12,7 @@ dependencies[] = features
 dependencies[] = image
 dependencies[] = list
 dependencies[] = menu
+dependencies[] = node
 dependencies[] = number
 dependencies[] = options
 dependencies[] = strongarm
