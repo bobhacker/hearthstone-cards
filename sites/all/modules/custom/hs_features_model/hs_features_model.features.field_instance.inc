@@ -10,7 +10,7 @@
 function hs_features_model_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-card-field_artist'
+  // Exported field_instance: 'node-card-field_artist'.
   $field_instances['node-card-field_artist'] = array(
     'bundle' => 'card',
     'default_value' => NULL,
@@ -51,7 +51,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card-field_attack'
+  // Exported field_instance: 'node-card-field_attack'.
   $field_instances['node-card-field_attack'] = array(
     'bundle' => 'card',
     'default_value' => NULL,
@@ -98,7 +98,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card-field_collectible'
+  // Exported field_instance: 'node-card-field_collectible'.
   $field_instances['node-card-field_collectible'] = array(
     'bundle' => 'card',
     'default_value' => array(
@@ -142,7 +142,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card-field_cost'
+  // Exported field_instance: 'node-card-field_cost'.
   $field_instances['node-card-field_cost'] = array(
     'bundle' => 'card',
     'default_value' => NULL,
@@ -189,7 +189,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card-field_durability'
+  // Exported field_instance: 'node-card-field_durability'.
   $field_instances['node-card-field_durability'] = array(
     'bundle' => 'card',
     'default_value' => NULL,
@@ -236,7 +236,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card-field_elite'
+  // Exported field_instance: 'node-card-field_elite'.
   $field_instances['node-card-field_elite'] = array(
     'bundle' => 'card',
     'default_value' => array(
@@ -280,7 +280,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card-field_faction'
+  // Exported field_instance: 'node-card-field_faction'.
   $field_instances['node-card-field_faction'] = array(
     'bundle' => 'card',
     'default_value' => NULL,
@@ -325,7 +325,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card-field_feed'
+  // Exported field_instance: 'node-card-field_feed'.
   $field_instances['node-card-field_feed'] = array(
     'bundle' => 'card',
     'default_value' => NULL,
@@ -365,7 +365,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card-field_flavor'
+  // Exported field_instance: 'node-card-field_flavor'.
   $field_instances['node-card-field_flavor'] = array(
     'bundle' => 'card',
     'default_value' => NULL,
@@ -406,7 +406,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card-field_health'
+  // Exported field_instance: 'node-card-field_health'.
   $field_instances['node-card-field_health'] = array(
     'bundle' => 'card',
     'default_value' => NULL,
@@ -453,7 +453,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card-field_howtoget'
+  // Exported field_instance: 'node-card-field_howtoget'.
   $field_instances['node-card-field_howtoget'] = array(
     'bundle' => 'card',
     'default_value' => NULL,
@@ -494,7 +494,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card-field_howtogetgold'
+  // Exported field_instance: 'node-card-field_howtogetgold'.
   $field_instances['node-card-field_howtogetgold'] = array(
     'bundle' => 'card',
     'default_value' => NULL,
@@ -535,7 +535,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card-field_id'
+  // Exported field_instance: 'node-card-field_id'.
   $field_instances['node-card-field_id'] = array(
     'bundle' => 'card',
     'default_value' => NULL,
@@ -576,7 +576,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card-field_inplaytext'
+  // Exported field_instance: 'node-card-field_inplaytext'.
   $field_instances['node-card-field_inplaytext'] = array(
     'bundle' => 'card',
     'default_value' => NULL,
@@ -617,7 +617,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card-field_mechanics'
+  // Exported field_instance: 'node-card-field_mechanics'.
   $field_instances['node-card-field_mechanics'] = array(
     'bundle' => 'card',
     'default_value' => NULL,
@@ -666,7 +666,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card-field_picture'
+  // Exported field_instance: 'node-card-field_picture'.
   $field_instances['node-card-field_picture'] = array(
     'bundle' => 'card',
     'deleted' => 0,
@@ -717,7 +717,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card-field_picturegold'
+  // Exported field_instance: 'node-card-field_picturegold'.
   $field_instances['node-card-field_picturegold'] = array(
     'bundle' => 'card',
     'deleted' => 0,
@@ -768,7 +768,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card-field_playerclass'
+  // Exported field_instance: 'node-card-field_playerclass'.
   $field_instances['node-card-field_playerclass'] = array(
     'bundle' => 'card',
     'default_value' => NULL,
@@ -813,7 +813,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card-field_race'
+  // Exported field_instance: 'node-card-field_race'.
   $field_instances['node-card-field_race'] = array(
     'bundle' => 'card',
     'default_value' => NULL,
@@ -858,7 +858,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card-field_rarity'
+  // Exported field_instance: 'node-card-field_rarity'.
   $field_instances['node-card-field_rarity'] = array(
     'bundle' => 'card',
     'default_value' => NULL,
@@ -903,7 +903,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card-field_text'
+  // Exported field_instance: 'node-card-field_text'.
   $field_instances['node-card-field_text'] = array(
     'bundle' => 'card',
     'default_value' => NULL,
@@ -944,7 +944,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card-field_type'
+  // Exported field_instance: 'node-card-field_type'.
   $field_instances['node-card-field_type'] = array(
     'bundle' => 'card',
     'default_value' => NULL,
@@ -989,7 +989,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card_feed-field_card_code'
+  // Exported field_instance: 'node-card_feed-field_card_code'.
   $field_instances['node-card_feed-field_card_code'] = array(
     'bundle' => 'card_feed',
     'default_value' => array(
@@ -1034,7 +1034,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card_feed-field_url'
+  // Exported field_instance: 'node-card_feed-field_url'.
   $field_instances['node-card_feed-field_url'] = array(
     'bundle' => 'card_feed',
     'default_value' => NULL,
@@ -1075,7 +1075,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-card_feed-title_field'
+  // Exported field_instance: 'node-card_feed-title_field'.
   $field_instances['node-card_feed-title_field'] = array(
     'bundle' => 'card_feed',
     'default_value' => NULL,
@@ -1118,7 +1118,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-faction-name_field'
+  // Exported field_instance: 'taxonomy_term-faction-name_field'.
   $field_instances['taxonomy_term-faction-name_field'] = array(
     'bundle' => 'faction',
     'default_value' => NULL,
@@ -1155,7 +1155,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-mechanics-name_field'
+  // Exported field_instance: 'taxonomy_term-mechanics-name_field'.
   $field_instances['taxonomy_term-mechanics-name_field'] = array(
     'bundle' => 'mechanics',
     'default_value' => NULL,
@@ -1192,7 +1192,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-playerclass-name_field'
+  // Exported field_instance: 'taxonomy_term-playerclass-name_field'.
   $field_instances['taxonomy_term-playerclass-name_field'] = array(
     'bundle' => 'playerclass',
     'default_value' => NULL,
@@ -1229,7 +1229,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-race-name_field'
+  // Exported field_instance: 'taxonomy_term-race-name_field'.
   $field_instances['taxonomy_term-race-name_field'] = array(
     'bundle' => 'race',
     'default_value' => NULL,
@@ -1266,7 +1266,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-rarity-name_field'
+  // Exported field_instance: 'taxonomy_term-rarity-name_field'.
   $field_instances['taxonomy_term-rarity-name_field'] = array(
     'bundle' => 'rarity',
     'default_value' => NULL,
@@ -1303,7 +1303,7 @@ function hs_features_model_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-type-name_field'
+  // Exported field_instance: 'taxonomy_term-type-name_field'.
   $field_instances['taxonomy_term-type-name_field'] = array(
     'bundle' => 'type',
     'default_value' => NULL,

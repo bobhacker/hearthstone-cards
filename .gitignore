@@ -85,3 +85,4 @@ sites/*/clienv.php
 # Ignore paths that contain user-generated content.
 sites/*/files
 sites/*/private
+sites/*/translations

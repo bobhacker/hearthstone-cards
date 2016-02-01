@@ -10,9 +10,9 @@
  */
 function hs_modules_enable() {
   module_enable(array(
-    'admin_menu_toolbar', 'devel', 'diff', 'context_ui', 'field_ui', 
-    'l10n_update', 'module_filter', 'views_ui',
-    'hs_features_model', 'hs_features_search', 'hs_import',
+    'admin_menu_toolbar', 'devel', 'diff', 'context_ui', 'field_ui', 'l10n_update', 'module_filter', 'views_ui',
+    'pathauto', 'transliteration', 'views_bulk_operations',
+    'hsc',
   ));
 }
 
@@ -22,4 +22,11 @@ function hs_modules_enable() {
  */
 function hs_modules_update_7000(&$sandbox) {
   module_enable(array('pathauto', 'transliteration'));
+}
+
+/**
+ * Activation du module Views Bulk Operations.
+ */
+function hs_modules_update_7001(&$sandbox) {
+  module_enable(array('views_bulk_operations'));
 }

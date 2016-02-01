@@ -10,7 +10,7 @@
 function hs_features_model_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_artist'
+  // Exported field_base: 'field_artist'.
   $field_bases['field_artist'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -32,7 +32,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_attack'
+  // Exported field_base: 'field_attack'.
   $field_bases['field_attack'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -49,7 +49,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'number_integer',
   );
 
-  // Exported field_base: 'field_card_code'
+  // Exported field_base: 'field_card_code'.
   $field_bases['field_card_code'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -71,7 +71,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_collectible'
+  // Exported field_base: 'field_collectible'.
   $field_bases['field_collectible'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -97,7 +97,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_cost'
+  // Exported field_base: 'field_cost'.
   $field_bases['field_cost'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -114,7 +114,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'number_integer',
   );
 
-  // Exported field_base: 'field_durability'
+  // Exported field_base: 'field_durability'.
   $field_bases['field_durability'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -131,7 +131,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'number_integer',
   );
 
-  // Exported field_base: 'field_elite'
+  // Exported field_base: 'field_elite'.
   $field_bases['field_elite'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -157,7 +157,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_faction'
+  // Exported field_base: 'field_faction'.
   $field_bases['field_faction'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -195,7 +195,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_feed'
+  // Exported field_base: 'field_feed'.
   $field_bases['field_feed'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -233,7 +233,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_flavor'
+  // Exported field_base: 'field_flavor'.
   $field_bases['field_flavor'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -255,7 +255,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_health'
+  // Exported field_base: 'field_health'.
   $field_bases['field_health'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -272,7 +272,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'number_integer',
   );
 
-  // Exported field_base: 'field_howtoget'
+  // Exported field_base: 'field_howtoget'.
   $field_bases['field_howtoget'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -294,7 +294,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_howtogetgold'
+  // Exported field_base: 'field_howtogetgold'.
   $field_bases['field_howtogetgold'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -316,7 +316,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_id'
+  // Exported field_base: 'field_id'.
   $field_bases['field_id'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -338,7 +338,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_inplaytext'
+  // Exported field_base: 'field_inplaytext'.
   $field_bases['field_inplaytext'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -360,7 +360,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_mechanics'
+  // Exported field_base: 'field_mechanics'.
   $field_bases['field_mechanics'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -398,7 +398,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_picture'
+  // Exported field_base: 'field_picture'.
   $field_bases['field_picture'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -423,7 +423,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_picturegold'
+  // Exported field_base: 'field_picturegold'.
   $field_bases['field_picturegold'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -448,7 +448,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_playerclass'
+  // Exported field_base: 'field_playerclass'.
   $field_bases['field_playerclass'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -486,7 +486,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_race'
+  // Exported field_base: 'field_race'.
   $field_bases['field_race'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -524,7 +524,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_rarity'
+  // Exported field_base: 'field_rarity'.
   $field_bases['field_rarity'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -562,7 +562,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_text'
+  // Exported field_base: 'field_text'.
   $field_bases['field_text'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -584,7 +584,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_type'
+  // Exported field_base: 'field_type'.
   $field_bases['field_type'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -622,7 +622,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_url'
+  // Exported field_base: 'field_url'.
   $field_bases['field_url'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -644,7 +644,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'name_field'
+  // Exported field_base: 'name_field'.
   $field_bases['name_field'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -666,7 +666,7 @@ function hs_features_model_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'title_field'
+  // Exported field_base: 'title_field'.
   $field_bases['title_field'] = array(
     'active' => 1,
     'cardinality' => 1,

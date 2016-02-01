@@ -1,5 +1,0 @@
-name = Hearthstone Import
-description = Gestion des imports de données Hearthstone.
-core = 7.x
-package = Hearthstone
-version = 7.x-1.0

@@ -20,6 +20,5 @@ function hs_features_model_menu_default_menu_custom() {
   // Included for use with string extractors like potx.
   t('Hearthstone');
 
-
   return $menus;
 }
