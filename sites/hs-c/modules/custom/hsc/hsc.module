@@ -111,12 +111,6 @@ function  hsc_import_from_feed_form($settings, &$form_state) {
 		'#default_value' => array($language->language),
 		'#after_build' => array('_hsc_import_from_feed_form_language_after_build'),
 	);
-	$form['collectible'] = array(
-		'#type' => 'radios',
-		'#title' => t('Collectible only?'),
-		'#options' => array(t('No'), t('Yes')),
-		'#default_value' => 1,
-	);
 	return $form;
 }
 
@@ -154,8 +148,7 @@ function hsc_import_from_feed_submit($form, $form_state) {
   }
 	
 	$return['hsc_import_settings'] = array(
-	  'languages' => $languages, 
-	  'collectible' => $form_state['values']['collectible'],
+	  'languages' => $languages,
 	);
 	return $return; // Note, return value here must be an array.
 }
@@ -174,8 +167,7 @@ function hsc_import_from_feed(&$node, $context) {
       $data_json = file_get_contents($feed_url[0]['value']);
       $data = json_decode($data_json);
       foreach ($data as $card) {
-      	if (!($context['hsc_import_settings']['collectible']) || (($context['hsc_import_settings']['collectible']) && isset($card->collectible) && ($card->collectible == 1)))
-        	$operations[] = array('hsc_import_batch_process', array($card, $node, $language));
+        $operations[] = array('hsc_import_batch_process', array($card, $node, $language));
       }
     }
   }
