@@ -21,6 +21,45 @@ function hsc_action_info() {
 
 
 /**
+ * Implements hook_action_form().
+ */
+function  hsc_import_from_feed_form($settings, &$form_state) {
+  global $language;
+
+  $form = array();
+  $form['language'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Choose import language:'),
+    '#options' => array('all' => '-Check/Uncheck all-') + locale_language_list(),
+    '#required' => TRUE,
+    '#default_value' => array($language->language),
+    '#after_build' => array('_hsc_import_from_feed_form_language_after_build'),
+  );
+  return $form;
+}
+
+
+/**
+ * Implements hook_action_submit().
+ */
+function hsc_import_from_feed_submit($form, $form_state) {
+  $return = array();
+
+  $languages = array();
+  foreach ($form_state['values']['language'] as $lang => $value) {
+    if (($lang != 'all') && !empty($value)) {
+      $languages[] = $lang;
+    }
+  }
+
+  $return['hsc_import_settings'] = array(
+    'languages' => $languages,
+  );
+  return $return; // Note, return value here must be an array.
+}
+
+
+/**
  * Implements hook_form_alter().
  */
 function hsc_form_alter(&$form, &$form_state, $form_id) {
@@ -89,98 +128,14 @@ function hsc_form_alter(&$form, &$form_state, $form_id) {
 
 
 /**
- * Ajax callback.
+ * Implements hook_views_api().
  */
-function _hsc_import_ajax_card_code_callback($form, $form_state) {
-  return $form['card_code_preview'];
-}
-
-
-/**
- * Implements hook_action_form().
- */
-function  hsc_import_from_feed_form($settings, &$form_state) {
-	global $language;
-	
-	$form = array();
-	$form['language'] = array(
-	  '#type' => 'checkboxes',
-	  '#title' => t('Choose import language:'),
-	  '#options' => array('all' => '-Check/Uncheck all-') + locale_language_list(),
-	  '#required' => TRUE,
-		'#default_value' => array($language->language),
-		'#after_build' => array('_hsc_import_from_feed_form_language_after_build'),
-	);
-	return $form;
-}
-
-
-/**
- * After build.
- */
-function _hsc_import_from_feed_form_language_after_build($element) {
-	global $language;
-	
-	foreach (element_children($element) as $key) {
-		if (in_array($key, array_keys(locale_language_list())) && ($key != $language->language)) {
-			$element[$key]['#states'] = array(
-				'checked' => array(
-					'input[value="all"]' => array('checked' => TRUE),	
-				),
-			);
-		}
-	}
-	return $element;
-}
-
-
-/**
- * Implements hook_action_submit().
- */
-function hsc_import_from_feed_submit($form, $form_state) {
-	$return = array();
-	
-	$languages = array();
-  foreach ($form_state['values']['language'] as $lang => $value) {
-    if (($lang != 'all') && !empty($value)) {
-      $languages[] = $lang;
-    }
-  }
-	
-	$return['hsc_import_settings'] = array(
-	  'languages' => $languages,
-	);
-	return $return; // Note, return value here must be an array.
-}
-
-
-/**
- * ACTION!
- */
-function hsc_import_from_feed(&$node, $context) {
-  $operations = array();
-  
-  $languages = $context['hsc_import_settings']['languages'];
-  foreach ($languages as $language) {
-    $feed_url = field_get_items('node', $node, 'field_url', $language);
-    if ($feed_url !== FALSE) {
-      $data_json = file_get_contents($feed_url[0]['value']);
-      $data = json_decode($data_json);
-      foreach ($data as $card) {
-        $operations[] = array('hsc_import_batch_process', array($card, $node, $language));
-      }
-    }
-  }
-  
-  if (!empty($operations)) {
-    $batch = array(
-      'title' => 'Import',
-      'operations' => $operations,
-      'finished' => 'hsc_import_batch_finished',
-    );
-    batch_set($batch);
-    node_save($node);
-  }
+function hsc_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'hsc'),
+    'template path' => drupal_get_path('module', 'hsc') . '/templates',
+  );
 }
 
 
@@ -224,7 +179,7 @@ function hsc_import_batch_process_import_card($card, $feed, $language) {
     $node->language = $language;
     $node->is_new = TRUE;
     node_object_prepare($node);
-    
+
     // Seek for translations
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', 'node');
@@ -235,22 +190,22 @@ function hsc_import_batch_process_import_card($card, $feed, $language) {
     $query->range(0, 1);
     $results = $query->execute();
     if (isset($results['node'])) {
-    	$result = array_shift($results['node']);
-    	$source = node_load($result->nid);
-    	if ($source->tnid) {
-    		$node->tnid = $source->tnid;
-    	}
-    	else {
-    		$node->tnid = $source->nid;
-    		$source->tnid = $source->nid;
-    		node_save($source);
-    	}
+      $result = array_shift($results['node']);
+      $source = node_load($result->nid);
+      if ($source->tnid) {
+        $node->tnid = $source->tnid;
+      }
+      else {
+        $node->tnid = $source->nid;
+        $source->tnid = $source->nid;
+        node_save($source);
+      }
     }
   }
 
   // Associate source feed
   $node->field_feed[LANGUAGE_NONE][0]['target_id'] = $feed->nid;
-  
+
   // Other fields
   foreach ($card as $property => $value) {
     switch ($property) {
@@ -320,27 +275,27 @@ function hsc_import_batch_process_import_card($card, $feed, $language) {
 
   $code_carte = field_get_items('node', $feed, 'field_card_code', $language);
   if ($code_carte !== FALSE) {
-	  // Card picture
-	  $directory = "public://cards/$language/original";
-  	if (file_prepare_directory($directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS)) {
-		  $url = 'http://wow.zamimg.com/images/hearthstone/cards/' . $code_carte[0]['value'] . '/original/' . $card->id . '.png';
-		  $file_headers = @get_headers($url);
-		  if (($file_headers[0] == 'HTTP/1.0 200 OK') && ($fic_picture = system_retrieve_file($url, $directory, TRUE, FILE_EXISTS_RENAME))) {
-		    $node->field_picture[LANGUAGE_NONE][0] = (array) $fic_picture;
-		  }
-  	}
-	
-	  // Golden card picture
-	  $directory = "public://cards/$language/animated";
-	  if (file_prepare_directory($directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS)) {
-		  $url = 'http://wow.zamimg.com/images/hearthstone/cards/' . $code_carte[0]['value'] . '/animated/' . $card->id . '_premium.gif';
-		  $file_headers = @get_headers($url);
-		  if (($file_headers[0] == 'HTTP/1.0 200 OK') && ($fic_picturegold = system_retrieve_file($url, $directory, TRUE, FILE_EXISTS_RENAME))) {
-		    $node->field_picturegold[LANGUAGE_NONE][0] = (array) $fic_picturegold;
-		  }
-	  }
+    // Card picture
+    $directory = "public://cards/$language/original";
+    if (file_prepare_directory($directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS)) {
+      $url = 'http://wow.zamimg.com/images/hearthstone/cards/' . $code_carte[0]['value'] . '/original/' . $card->id . '.png';
+      $file_headers = @get_headers($url);
+      if (($file_headers[0] == 'HTTP/1.0 200 OK') && ($fic_picture = system_retrieve_file($url, $directory, TRUE, FILE_EXISTS_RENAME))) {
+        $node->field_picture[LANGUAGE_NONE][0] = (array) $fic_picture;
+      }
+    }
+
+    // Golden card picture
+    $directory = "public://cards/$language/animated";
+    if (file_prepare_directory($directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS)) {
+      $url = 'http://wow.zamimg.com/images/hearthstone/cards/' . $code_carte[0]['value'] . '/animated/' . $card->id . '_premium.gif';
+      $file_headers = @get_headers($url);
+      if (($file_headers[0] == 'HTTP/1.0 200 OK') && ($fic_picturegold = system_retrieve_file($url, $directory, TRUE, FILE_EXISTS_RENAME))) {
+        $node->field_picturegold[LANGUAGE_NONE][0] = (array) $fic_picturegold;
+      }
+    }
   }
-  
+
   // Sauvegarde
   $node = node_submit($node);
   node_save($node);
@@ -364,12 +319,57 @@ function hsc_import_batch_finished($success, $results, $operations) {
 
 
 /**
- * Implements hook_views_api().
+ * ACTION!
  */
-function hsc_views_api() {
-  return array(
-    'api' => 3,
-    'path' => drupal_get_path('module', 'hsc'),
-    'template path' => drupal_get_path('module', 'hsc') . '/templates',
-  );
+function hsc_import_from_feed(&$node, $context) {
+  $operations = array();
+
+  $languages = $context['hsc_import_settings']['languages'];
+  foreach ($languages as $language) {
+    $feed_url = field_get_items('node', $node, 'field_url', $language);
+    if ($feed_url !== FALSE) {
+      $data_json = file_get_contents($feed_url[0]['value']);
+      $data = json_decode($data_json);
+      foreach ($data as $card) {
+        $operations[] = array('hsc_import_batch_process', array($card, $node, $language));
+      }
+    }
+  }
+
+  if (!empty($operations)) {
+    $batch = array(
+      'title' => 'Import',
+      'operations' => $operations,
+      'finished' => 'hsc_import_batch_finished',
+    );
+    batch_set($batch);
+    node_save($node);
+  }
+}
+
+
+/**
+ * Ajax callback.
+ */
+function _hsc_import_ajax_card_code_callback($form, $form_state) {
+  return $form['card_code_preview'];
+}
+
+
+/**
+ * After build.
+ */
+function _hsc_import_from_feed_form_language_after_build($element) {
+	global $language;
+	
+	foreach (element_children($element) as $key) {
+		if (in_array($key, array_keys(locale_language_list())) && ($key != $language->language)) {
+			$element[$key]['#states'] = array(
+				'checked' => array(
+					'input[value="all"]' => array('checked' => TRUE),	
+				),
+			);
+		}
+	}
+	return $element;
 }
