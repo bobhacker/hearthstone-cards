@@ -48,12 +48,12 @@ function hs_features_model_views_default_views() {
       'label' => '',
     ),
   );
-  /* Field: Content: Title */
+  /* Field: Nœud: Title */
   $handler->display->display_options['fields']['title_field']['id'] = 'title_field';
   $handler->display->display_options['fields']['title_field']['table'] = 'field_data_title_field';
   $handler->display->display_options['fields']['title_field']['field'] = 'title_field';
   $handler->display->display_options['fields']['title_field']['link_to_entity'] = 0;
-  /* Sort criterion: Content: Title (title_field) */
+  /* Sort criterion: Nœud: Title (title_field) */
   $handler->display->display_options['sorts']['title_field_value']['id'] = 'title_field_value';
   $handler->display->display_options['sorts']['title_field_value']['table'] = 'field_data_title_field';
   $handler->display->display_options['sorts']['title_field_value']['field'] = 'title_field_value';
@@ -72,7 +72,7 @@ function hs_features_model_views_default_views() {
   $handler->display->display_options['filters']['status']['value'] = 1;
   $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Title (title_field:language) */
+  /* Filter criterion: Nœud: Title (title_field:language) */
   $handler->display->display_options['filters']['language']['id'] = 'language';
   $handler->display->display_options['filters']['language']['table'] = 'field_data_title_field';
   $handler->display->display_options['filters']['language']['field'] = 'language';
@@ -89,20 +89,6 @@ function hs_features_model_views_default_views() {
   $handler->display->display_options['menu']['name'] = 'menu-hearthstone';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
-  $translatables['import'] = array(
-    t('Master'),
-    t('Import cards'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('Content'),
-    t('- Choose an operation -'),
-    t('Title'),
-    t('Page'),
-  );
   $export['import'] = $view;
 
   $view = new view();
@@ -125,12 +111,12 @@ function hs_features_model_views_default_views() {
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['style_plugin'] = 'table';
-  /* Field: Content: Title */
+  /* Field: Nœud: Title */
   $handler->display->display_options['fields']['title_field']['id'] = 'title_field';
   $handler->display->display_options['fields']['title_field']['table'] = 'field_data_title_field';
   $handler->display->display_options['fields']['title_field']['field'] = 'title_field';
   $handler->display->display_options['fields']['title_field']['link_to_entity'] = 1;
-  /* Field: Content: URL */
+  /* Field: Nœud: URL */
   $handler->display->display_options['fields']['field_url']['id'] = 'field_url';
   $handler->display->display_options['fields']['field_url']['table'] = 'field_data_field_url';
   $handler->display->display_options['fields']['field_url']['field'] = 'field_url';
@@ -152,7 +138,7 @@ function hs_features_model_views_default_views() {
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Actions';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '[edit_node]&nbsp;|&nbsp;[delete_node]';
-  /* Sort criterion: Content: Title (title_field) */
+  /* Sort criterion: Nœud: Title (title_field) */
   $handler->display->display_options['sorts']['title_field_value']['id'] = 'title_field_value';
   $handler->display->display_options['sorts']['title_field_value']['table'] = 'field_data_title_field';
   $handler->display->display_options['sorts']['title_field_value']['field'] = 'title_field_value';
@@ -171,7 +157,7 @@ function hs_features_model_views_default_views() {
   $handler->display->display_options['filters']['status']['value'] = 1;
   $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Title (title_field:language) */
+  /* Filter criterion: Nœud: Title (title_field:language) */
   $handler->display->display_options['filters']['language']['id'] = 'language';
   $handler->display->display_options['filters']['language']['table'] = 'field_data_title_field';
   $handler->display->display_options['filters']['language']['field'] = 'language';
@@ -189,25 +175,6 @@ function hs_features_model_views_default_views() {
   $handler->display->display_options['menu']['name'] = 'menu-hearthstone';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
-  $translatables['manage_feeds'] = array(
-    t('Master'),
-    t('Manage feeds'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('Title'),
-    t('URL'),
-    t('Edit link'),
-    t('Edit'),
-    t('Delete link'),
-    t('Delete'),
-    t('Actions'),
-    t('[edit_node]&nbsp;|&nbsp;[delete_node]'),
-    t('Page'),
-  );
   $export['manage_feeds'] = $view;
 
   return $export;

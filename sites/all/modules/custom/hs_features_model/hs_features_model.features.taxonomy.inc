@@ -18,6 +18,21 @@ function hs_features_model_taxonomy_default_vocabularies() {
       'weight' => -10,
       'language' => 'und',
       'i18n_mode' => 1,
+      'rdf_mapping' => array(
+        'rdftype' => array(
+          0 => 'skos:ConceptScheme',
+        ),
+        'name' => array(
+          'predicates' => array(
+            0 => 'dc:title',
+          ),
+        ),
+        'description' => array(
+          'predicates' => array(
+            0 => 'rdfs:comment',
+          ),
+        ),
+      ),
     ),
     'mechanics' => array(
       'name' => 'Mechanics',
@@ -28,6 +43,21 @@ function hs_features_model_taxonomy_default_vocabularies() {
       'weight' => -9,
       'language' => 'und',
       'i18n_mode' => 1,
+      'rdf_mapping' => array(
+        'rdftype' => array(
+          0 => 'skos:ConceptScheme',
+        ),
+        'name' => array(
+          'predicates' => array(
+            0 => 'dc:title',
+          ),
+        ),
+        'description' => array(
+          'predicates' => array(
+            0 => 'rdfs:comment',
+          ),
+        ),
+      ),
     ),
     'playerclass' => array(
       'name' => 'Player class',
@@ -38,6 +68,21 @@ function hs_features_model_taxonomy_default_vocabularies() {
       'weight' => -8,
       'language' => 'und',
       'i18n_mode' => 1,
+      'rdf_mapping' => array(
+        'rdftype' => array(
+          0 => 'skos:ConceptScheme',
+        ),
+        'name' => array(
+          'predicates' => array(
+            0 => 'dc:title',
+          ),
+        ),
+        'description' => array(
+          'predicates' => array(
+            0 => 'rdfs:comment',
+          ),
+        ),
+      ),
     ),
     'race' => array(
       'name' => 'Race',
@@ -48,6 +93,21 @@ function hs_features_model_taxonomy_default_vocabularies() {
       'weight' => -7,
       'language' => 'und',
       'i18n_mode' => 1,
+      'rdf_mapping' => array(
+        'rdftype' => array(
+          0 => 'skos:ConceptScheme',
+        ),
+        'name' => array(
+          'predicates' => array(
+            0 => 'dc:title',
+          ),
+        ),
+        'description' => array(
+          'predicates' => array(
+            0 => 'rdfs:comment',
+          ),
+        ),
+      ),
     ),
     'rarity' => array(
       'name' => 'Rarity',
@@ -58,6 +118,21 @@ function hs_features_model_taxonomy_default_vocabularies() {
       'weight' => -6,
       'language' => 'und',
       'i18n_mode' => 1,
+      'rdf_mapping' => array(
+        'rdftype' => array(
+          0 => 'skos:ConceptScheme',
+        ),
+        'name' => array(
+          'predicates' => array(
+            0 => 'dc:title',
+          ),
+        ),
+        'description' => array(
+          'predicates' => array(
+            0 => 'rdfs:comment',
+          ),
+        ),
+      ),
     ),
     'type' => array(
       'name' => 'Type',
@@ -68,6 +143,21 @@ function hs_features_model_taxonomy_default_vocabularies() {
       'weight' => -5,
       'language' => 'und',
       'i18n_mode' => 1,
+      'rdf_mapping' => array(
+        'rdftype' => array(
+          0 => 'skos:ConceptScheme',
+        ),
+        'name' => array(
+          'predicates' => array(
+            0 => 'dc:title',
+          ),
+        ),
+        'description' => array(
+          'predicates' => array(
+            0 => 'rdfs:comment',
+          ),
+        ),
+      ),
     ),
   );
 }
